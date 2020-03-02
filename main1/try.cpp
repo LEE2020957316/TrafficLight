@@ -137,30 +137,41 @@ for(tySN=3,tySN>0,tySN--)
   digitalWrite(5, 1); //SN yellow, else red
   }
    
-    
-      if(flag==1)
+     if(button())
 {
- 
+ goto  walk_light;
+     }
+    return 0;
+   }
        
-     walk_light:
+ walk_light:
+ GPIO.output(18, GPIO.HIGH)
+sleep(1)
     for(tgside=10,tgEW>0,tgEW--)
   {
   digitalWrite(18, 1);
   digitalWrite(23, 1);
   digitalWrite(6, 1); //side green, else red
     }
-     }
-    else
-break;
+ GPIO.output(18, GPIO.LOW)
+sleep(1)
+     
+
+
+
 }
 
-
-while True:
-
-GPIO.output(18, GPIO.HIGH)
-sleep(1)
-GPIO.output(18, GPIO.LOW)
-sleep(1)
+void button()
+{
+//flag=1;
 }
+//  while(1)
+  {
+     //if(flag)
+//{
+//while(digitalRead(0)==LOW); //检测按键是否松开，没有松开的话，一直等待
+ // GPIO.output(18, GPIO.HIGH);
+//flag=0;
+//}
 
 
