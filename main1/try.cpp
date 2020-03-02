@@ -61,7 +61,7 @@ void button()
 
 void sensor()
 {
-PinMode(23,GPIO.OUTPUT);
+PinMode(23,GPIO.OUTPUT);// pinmode (int pin, int mode)
 int timer=0;
 do
 {
@@ -73,7 +73,7 @@ sleep(0.01);
    digitalWrite (23,1);    //operate timer digitalwrite(int pin, int value)// if value != 0 == high)
   }
 }
-while(digitalRead(12==1)&&digitalRead(18==1));
+while(digitalRead(12==1)&&digitalRead(18==1));// has input signals
 }
 
 
@@ -167,7 +167,7 @@ for(tySN=3,tySN>0,tySN--)
    }
        
  walk_light:
- GPIO.output(18, GPIO.HIGH)
+ digitalWrite(18, GPIO.HIGH)
 sleep(1)
     for(tgside=10,tgEW>0,tgEW--)
   {
@@ -175,7 +175,7 @@ sleep(1)
   digitalWrite(23, 1);
   digitalWrite(6, 1); //side green, else red
     }
- GPIO.output(18, GPIO.LOW)
+  digitalWrite(18, GPIO.LOW)
 sleep(1)
 
 
