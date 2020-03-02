@@ -67,7 +67,7 @@ do
 {
 t=t+0.01;
 sleep(0.01);
-  if(t>=1)
+  if(t>=1)// counterv t can not exceed 1 minutes?
   {
    t=0;
    digitalWrite (23,1);    //operate timer digitalwrite(int pin, int value)// if value != 0 == high)
