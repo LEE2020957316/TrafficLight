@@ -53,6 +53,11 @@ void yellowSNini()
 PinMode(3,GPIO.OUTPUT);
 digitalWrite(3, GPIO.LOW);
 }
+     
+void button()
+{
+ flag=1;
+}
 
 
 int main()
@@ -155,17 +160,10 @@ sleep(1)
     }
  GPIO.output(18, GPIO.LOW)
 sleep(1)
-     
 
 
-
-}
-
-void button()
-{
-//flag=1;
-}
-//  while(1)
+ 
+ //  while(1)
   {
      //if(flag)
 //{
