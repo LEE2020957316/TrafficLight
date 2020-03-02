@@ -67,12 +67,13 @@ do
 {
 t=t+0.01;
 sleep(0.01);
-}while(digitalRead(12==1)&&digitalRead(18==1));
-if(t>=1)
-{
-digitalWrite (23,1);    //operate timer digitalwrite(int pin, int value)// if value != 0 == high)
-t=0;
+  if(t>=1)
+  {
+   t=0;
+   digitalWrite (23,1);    //operate timer digitalwrite(int pin, int value)// if value != 0 == high)
+  }
 }
+while(digitalRead(12==1)&&digitalRead(18==1));
 }
 
 
