@@ -160,11 +160,11 @@ for(tySN=3,tySN>0,tySN--)
   }
    
      if(button())
-{
+     {
  goto  walk_light;
      }
     return 0;
-   }
+ }
        
  walk_light:
  digitalWrite(18, GPIO.HIGH);
