@@ -1,3 +1,5 @@
+auto int tgSN tgEW;
+
 void sensortimer()
 {
 PinMode(23,GPIO.OUTPUT);// pinmode (int pin, int mode), computer control it by 23
@@ -6,7 +8,7 @@ do
 {
 t=t+0.01;
 sleep(0.01);
-    if(tgEW=tgEW-5 || )
+    if(tgEW=tgEW-5 ||tgSN=tgSN-5)
   {
     break;
   }
@@ -15,10 +17,10 @@ sleep(0.01);
     t=0;
 }
 
- 
-if(t<=1)
+ void Newtime()
+  if(t<=1)
   {
-    
+    printf
   }
     else if(t>=1 && t<=2)
     {
@@ -32,8 +34,8 @@ if(t<=1)
 
 Struct Time
 { 
-char Time[2];
+char Time[10];
 int num;
-} time[3]={ {“S”,15 },{“M”, 20}, {“L”, 25}};
+} time[3]={ {"small",15 },{"normal", 20}, {"large", 25}};
 
 
