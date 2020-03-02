@@ -13,29 +13,30 @@ sleep(0.01);
     break;
   }
 }while(digitalRead(12==1)&&digitalRead(18==1));// has input signals
-    digitalWrite (23,1);    //operate timer;// digitalwrite(int pin, int value)// if value != 0 == high)
-    t=0;
+    digitalWrite (23,1); //operate timer;// digitalwrite(int pin, int value)// if value != 0 == high)
+     Newtime();
+     t=0;
 }
 
  void Newtime()
   if(t<=1)
-  {
-    printf
+   tgEW=tgEW||tgSN=tgSN
+    
   }
     else if(t>=1 && t<=2)
     {
-      
+      tgEW+=5 || tgSN+=5 
     }
        else if(t>=2)
   {
- 
+   tgEW+=10 || tgSN+=10 
   }
 
 
-Struct Time
+/*Struct Time
 { 
-char Time[10];
+char Car[10];
 int num;
-} time[3]={ {"small",15 },{"normal", 20}, {"large", 25}};
+} time[3]={{"small",15 },{"normal", 20}, {"large", 25}};
 
 
