@@ -1,4 +1,4 @@
-void SNsensorini()
+void SNsensorini()// initilize sub-function
  {
 PinMode(12,GPIO.INPUT)
 PinMode(18,GPIO.INPUT)
