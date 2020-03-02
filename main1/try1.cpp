@@ -1,14 +1,18 @@
 void sensortimer()
 {
 PinMode(23,GPIO.OUTPUT);// pinmode (int pin, int mode), computer control it by 23
-int timer=0;
+int t=0;
 do
 {
 t=t+0.01;
 sleep(0.01);
+    if()
+  {
+    
+  }
 }while(digitalRead(12==1)&&digitalRead(18==1));// has input signals
+    digitalWrite (23,1);    //operate timer;// digitalwrite(int pin, int value)// if value != 0 == high)
     t=0;
-   digitalWrite (23,1);    //operate timer digitalwrite(int pin, int value)// if value != 0 == high)
 }
 
  
@@ -16,11 +20,11 @@ if(t<=1)
   {
     
   }
-    else if(t>=1&& t<=2)
+    else if(t>=1 && t<=2)
     {
       
     }
-       else if(t>=1&& t<=2)
+       else if(t>=2)
   {
  
   }
