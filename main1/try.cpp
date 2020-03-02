@@ -133,6 +133,7 @@ PinMode(3,GPIO.OUTPUT);
    digitalWrite(25, 1);
   digitalWrite(23, 1);
   digitalWrite(5, 1); //EW green, else red
+   sensortimer();
 }
 
 redSNini();
@@ -150,7 +151,7 @@ for(tyEW=3,tyEW>0,tyEW--)
   {
   digitalWrite(18, 1);
  digitalWrite(12, 1);
-  digitalWrite(5, 1); //SN green, else red
+  digitalWrite(5, 1); //SN green, else red;
    }
    
    redEWini();
@@ -159,9 +160,10 @@ for(tySN=3,tySN>0,tySN--)
   digitalWrite(18, 1);
   digitalWrite(3, 1);
   digitalWrite(5, 1); //SN yellow, else red
+   sensortimer();
   }
    
-     if(button())
+    if(button())
      {
  goto  walk_light;
      }
