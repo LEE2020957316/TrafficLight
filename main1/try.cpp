@@ -59,7 +59,7 @@ void button()
  flag=1;
 }
 
-void sensor
+void sensor()
 {
 PinMode(23,GPIO.OUTPUT);
 int timer=0;
