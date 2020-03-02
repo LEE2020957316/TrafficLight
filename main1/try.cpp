@@ -54,7 +54,7 @@ PinMode(3,GPIO.OUTPUT);
 digitalWrite(3, GPIO.LOW);
 }
      
-void button()
+void button()// check button
 {
  flag=1;
 }
@@ -162,8 +162,7 @@ for(tySN=3,tySN>0,tySN--)
   digitalWrite(5, 1); //SN yellow, else red
    sensortimer();
   }
-   
-    if(button())
+  if(button())
      {
  goto  walk_light;
      }
