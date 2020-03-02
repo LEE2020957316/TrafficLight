@@ -93,11 +93,10 @@ PinMode(3,GPIO.OUTPUT);
  
    while true // intialize succeed
   {
- Car_light:
-    
+   
   redSNini();
   redEWini();
-  for (tr=5,tr>0,tr--)
+  for (tr=3,tr>0,tr--)
   {
   digitalWrite(18,1);
   digitalWrite(23, 1);
@@ -137,21 +136,13 @@ for(tySN=3,tySN>0,tySN--)
   digitalWrite(3, 1);
   digitalWrite(5, 1); //SN yellow, else red
   }
-  
-
-  pinMode(0,INPUT); //引脚0为输入模式
-  pullUpDnControl(0,PUD_UP); //设置0号引脚上拉
-  
-  //注册中断程序
-  if(wiringPiISR(0,INT_EDGE_FALLING,&button)<0) //设置引脚下降沿触发
-  {
-     printf("unable ISR\n");   
-  }
- 
-  while(1)
-  {
-     if(button()== 1)//?some one press the button.
+   
+    
+      if(flag==1)
 {
+ 
+       
+     walk_light:
     for(tgside=10,tgEW>0,tgEW--)
   {
   digitalWrite(18, 1);
@@ -162,7 +153,7 @@ for(tySN=3,tySN>0,tySN--)
     else
 break;
 }
-}
+
 
 while True:
 
@@ -172,7 +163,4 @@ GPIO.output(18, GPIO.LOW)
 sleep(1)
 }
 
-void button()
-{
-flag=1;
-}
+
