@@ -6,9 +6,9 @@ do
 {
 t=t+0.01;
 sleep(0.01);
-    if()
+    if(tgEW=tgEW-5 || )
   {
-    
+    break;
   }
 }while(digitalRead(12==1)&&digitalRead(18==1));// has input signals
     digitalWrite (23,1);    //operate timer;// digitalwrite(int pin, int value)// if value != 0 == high)
