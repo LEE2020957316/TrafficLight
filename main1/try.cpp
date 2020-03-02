@@ -59,9 +59,9 @@ void button()
  flag=1;
 }
 
-void sensor()
+void sensortimer()
 {
-PinMode(23,GPIO.OUTPUT);// pinmode (int pin, int mode)
+PinMode(23,GPIO.OUTPUT);// pinmode (int pin, int mode), computer control it by 23
 int timer=0;
 do
 {
