@@ -54,11 +54,17 @@ PinMode(3,GPIO.OUTPUT);
 digitalWrite(3, GPIO.LOW);
 }
 
-#include<wiringPi.h>
-#include<stdio.h>
 
 int main()
   {
+ 
+  int tr,tg,ty; //timing
+ 
+  if(WiringPiSetup() == -1) //initialize wiringpi store fail or not
+ {
+  printf("you set up wiringpi failed"); //failed
+  return 1;
+ }
 redEW=18; // Pin 12
 redSN=23; // Pin 16
 greenEW=25; // Pin 22
@@ -85,10 +91,10 @@ PinMode(3,GPIO.OUTPUT);
   digitalWrite(3, GPIO.LOW);
   
  
-  while (1)
+   while true // intialize succeed
   {
-  int tr,tg,ty; //timing
-  
+ Car_light:
+    
   redSNini();
   redEWini();
   for (tr=5,tr>0,tr--)
@@ -132,12 +138,7 @@ for(tySN=3,tySN>0,tySN--)
   digitalWrite(5, 1); //SN yellow, else red
   }
   
-if(wiringPiSetup()<0) //初始化wiringPi库
- {
- printf("can't init wiringPi\n"); //初始化失败时，打印出提示信息，并且推出
-   return -1;
-  }
-  printf("test interrput\n"); //打印提示信息
+
   pinMode(0,INPUT); //引脚0为输入模式
   pullUpDnControl(0,PUD_UP); //设置0号引脚上拉
   
@@ -149,15 +150,17 @@ if(wiringPiSetup()<0) //初始化wiringPi库
  
   while(1)
   {
-     if(flag)
+     if(button()== 1)//?some one press the button.
 {
     for(tgside=10,tgEW>0,tgEW--)
   {
   digitalWrite(18, 1);
   digitalWrite(23, 1);
   digitalWrite(6, 1); //side green, else red
-}
-flag=0;
+    }
+     }
+    else
+break;
 }
 }
 
