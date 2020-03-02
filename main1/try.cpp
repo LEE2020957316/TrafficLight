@@ -59,6 +59,22 @@ void button()
  flag=1;
 }
 
+void sensor
+{
+PinMode(23,GPIO.OUTPUT);
+int timer=0;
+do
+{
+t=t+0.01;
+sleep(0.01);
+}while(digitalRead(12==1)&&digitalRead(18==1));
+if(t>=1)
+{
+digitalWrite (23,1);    //operate timer digitalwrite(int pin, int value)// if value != 0 == high)
+t=0;
+}
+}
+
 
 int main()
   {
