@@ -127,6 +127,7 @@ PinMode(3,GPIO.OUTPUT);
   
   greenEWini();
   redSNini();
+  SNsensorini(); //EW green, and SN sensortimer star 
   for(tgEW=10,tgEW>0,tgEW--)
 {
    digitalWrite(25, 1);
@@ -144,6 +145,7 @@ for(tyEW=3,tyEW>0,tyEW--)
   
   redEWini();
   greenSNini();
+   EWsesorini(); // SN green, and EW sensortimer star 
     for(tgSN=10,tgSN>0,tgSN--)
   {
   digitalWrite(18, 1);
