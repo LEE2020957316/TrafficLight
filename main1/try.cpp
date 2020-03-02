@@ -167,16 +167,18 @@ for(tySN=3,tySN>0,tySN--)
    }
        
  walk_light:
- digitalWrite(18, GPIO.HIGH)
-sleep(1)
+ digitalWrite(18, GPIO.HIGH);
+sleep(1);
     for(tgside=10,tgEW>0,tgEW--)
   {
   digitalWrite(18, 1);
   digitalWrite(23, 1);
   digitalWrite(6, 1); //side green, else red
     }
-  digitalWrite(18, GPIO.LOW)
-sleep(1)
+  digitalWrite(18, GPIO.LOW);
+sleep(1);
+ flag=0;
+   
 
 
  
