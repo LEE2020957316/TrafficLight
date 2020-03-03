@@ -1,6 +1,6 @@
 #include<WiringPi.h>
 #include<stdio.h>
-#include<stdlib.h>
+#include<stdlib.h>//?
 
 #define redEW 18 // Pin 12
 #define redSN 23 // Pin 16
@@ -230,7 +230,7 @@ for(tySN=3,tySN>0,tySN--)
        
 walk_light:
  digitalWrite(18, GPIO.HIGH);
-sleep(1);
+ delay(1000);//sleep(1)? 一秒
     for(tgside=10,tgEW>0,tgEW--)
   {
   digitalWrite(18, 1);
@@ -238,7 +238,7 @@ sleep(1);
   digitalWrite(6, 1); //side green, else red
     }
   digitalWrite(18, GPIO.LOW);
-sleep(1);
+  delay(1000);//sleep(1)? 延长一秒等于1000毫秒
  flag=0;
  return 0;
  }
