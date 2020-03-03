@@ -8,6 +8,7 @@ PinMode(12,GPIO.INPUT)
 PinMode(18,GPIO.INPUT)
 PinMode(2,GPIO.INPUT)
 PinMode(3,GPIO.INPUT)
+  GetnewtSN()
  }
 
   void EWsesorini()
@@ -16,6 +17,7 @@ PinMode(23,GPIO.INPUT)
 PinMode(25,GPIO.INPUT)
 PinMode(4,GPIO.INPUT)
 PinMode(5,GPIO.INPUT)
+ 
 }
 
 void redEWini()
@@ -161,7 +163,8 @@ for(tySN=3,tySN>0,tySN--)
   digitalWrite(3, 1);
   digitalWrite(5, 1); //SN yellow, else red
    sensortimer();
-  }
+ }
+    
   if(button())
      {
  goto  walk_light;
