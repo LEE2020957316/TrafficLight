@@ -2,16 +2,16 @@
 #include<WiringPi.h>
 #include<stdio.h>
 
-#define redEW 18; // Pin 12
-#define redSN=23; // Pin 16
-#define greenEW=25; // Pin 22
-#define greenSN 12; // Pin 32
-#define yellowEW 2; // Pin 3
-#define yellowSN 3; // Pin 5
-#define sider 5; // Pin 29 BCM !!!
-#define sideg 6; // Pin 31 BCM !!!
-#define extrasensor1 4;//Pin 16
-#define extrasensor2 5;//Pin 18
+#define redEW 18 // Pin 12
+#define redSN=23 // Pin 16
+#define greenEW=25 // Pin 22
+#define greenSN 12 // Pin 32
+#define yellowEW 2// Pin 3
+#define yellowSN 3 // Pin 5
+#define sider 5// Pin 29 BCM !!!
+#define sideg 6// Pin 31 BCM !!!
+#define extrasensor1 4//Pin 16
+#define extrasensor2 5 //Pin 18
 
 
 void SNsensorini()
