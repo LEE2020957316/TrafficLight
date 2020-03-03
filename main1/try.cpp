@@ -240,6 +240,8 @@ sleep(1);
   digitalWrite(18, GPIO.LOW);
 sleep(1);
  flag=0;
+ return 0;
+ }
    
 
 
