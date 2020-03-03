@@ -1,6 +1,17 @@
 
 #include<WiringPi.h>
 #include<stdio.h>
+#define redEW 18; // Pin 12
+#define
+#define 
+#define greenSN 12; // Pin 32
+#define yellowEW 2; // Pin 3
+#define yellowSN 3; // Pin 5
+#define sider 5; // Pin 29 BCM !!!
+#define sideg 6; // Pin 31 BCM !!!
+#define extrasensor1 4;//Pin 16
+#define extrasensor2 5;//Pin 18
+
 
 void SNsensorini()
  {
@@ -121,16 +132,6 @@ while(digitalRead(12==1)&&digitalRead(18==1));// has input signals
   printf("you set up wiringpi failed"); //failed
   return 1;
  }
-redEW=18; // Pin 12
-redSN=23; // Pin 16
-greenEW=25; // Pin 22
-greenSN=12; // Pin 32
-yellowEW=2; // Pin 3
-yellowSN=3; // Pin 5
-sider=5; // Pin 29 BCM !!!
-sideg=6; // Pin 31 BCM !!!
-extrasensor1=4;//Pin 16
-extrasensor2=5;//Pin 18
 
 PinMode(18,GPIO.OUTPUT);
 PinMode(23,GPIO.OUTPUT);
