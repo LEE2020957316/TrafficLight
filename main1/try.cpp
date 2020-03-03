@@ -235,12 +235,13 @@ for(tySN=3,tySN>0,tySN--)
      }
    else 
        {
-    digitalWrite(18, GPIO.LOW);// no signal was checked, no light respon
+       digitalWrite(18, GPIO.LOW);// no signal was checked, no light respon
+       digitalWrite(23, GPIO.LOW);
+       digitalWrite(6, GPIO.LOW);
         }
  
   walk_light:
-   
- digitalWrite(18, GPIO.HIGH); // all side greenlight lighting
+   //digitalWrite(18, GPIO.HIGH); // all side greenlight lighting
     for(tgside=10,tgside>0,tgside--)
   {
   digitalWrite(18, 1);
