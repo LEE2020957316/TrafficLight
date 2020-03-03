@@ -80,7 +80,7 @@ int timer=0;
 do
 {
 t=t+0.01;
-sleep(0.01);
+delay(10);  //sleep(0.01)=10ms 
   if(t>=1)// counterv t can not exceed 1 minutes?
   {
    t=0;
@@ -93,11 +93,12 @@ while(digitalRead(12==1)&&digitalRead(18==1));// has input signals
 2.void sensortimer()
 {
 PinMode(23,GPIO.OUTPUT);// pinmode (int pin, int mode), computer control it by 23
-int t=0;
+int t1,t=0;
+t1=tgEW;
 do
 {
 t=t+0.01;
-sleep(0.01);
+delay(10);  //sleep(0.01)=10ms 
     if(tgEW=tgEW-5 ||tgSN=tgSN-5)// only check for 5 mins each time
   {
     break;
@@ -121,6 +122,7 @@ sleep(0.01);
   {
    tgEW+=10;
   }
+  t1=tgEW;
  }
 
 /*tgEW=(t<=1)? 15:15+(t-1)*10;// 2 or more chooses
@@ -139,6 +141,7 @@ sleep(0.01);
   {
      tgSN+=10; 
   }
+  t1=tgSN;
  }
 
 /*tgSN=(t<=1)? 15:15+(t-1)*10;// 2 or more chooses
@@ -147,7 +150,7 @@ sleep(0.01);
 */int main()
   {
  
-  auto int tgSN tgEW;
+  auto int tgSN,tgEW,t1;
   int tr,tg,ty; //timing
 
   if(WiringPiSetup() == -1) //initialize wiringpi store fail or not
