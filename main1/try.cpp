@@ -107,6 +107,7 @@ sleep(0.01);
 }
 
  */void GetnewtEW()
+ {
   if(t<=1)
    tgEW=tgEW;// 3 chooses
     
@@ -119,10 +120,12 @@ sleep(0.01);
   {
    tgEW+=10;
   }
+ }
 
 /*tgEW=(t<=1)? 15:15+(t-1)*10;// 2 or more chooses
 
  */void GetnewtSN()
+ {
   if(t<=1)
    tgSN=tgSN; // 3 chooses
     
@@ -135,13 +138,14 @@ sleep(0.01);
   {
      tgSN+=10; 
   }
+ }
 
 /*tgSN=(t<=1)? 15:15+(t-1)*10;// 2 or more chooses
 
 
 */int main()
   {
-   
+ 
   auto int tgSN tgEW;
   int tr,tg,ty; //timing
 
