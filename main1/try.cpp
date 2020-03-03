@@ -140,6 +140,7 @@ sleep(0.01);
 
 /*tgSN=(t<=1)? 15:15+(t-1)*10;// 2 or more chooses
 
+
 */int main()
   {
    
@@ -190,7 +191,7 @@ PinMode(3,GPIO.OUTPUT);
    sensortimer();
 }
 
-redSNini();
+ redSNini();
 for(tyEW=3,tyEW>0,tyEW--)
  {
  digitalWrite(2, 1);
@@ -224,7 +225,7 @@ for(tySN=3,tySN>0,tySN--)
     return 0;
  }
        
- walk_light:
+walk_light:
  digitalWrite(18, GPIO.HIGH);
 sleep(1);
     for(tgside=10,tgEW>0,tgEW--)
@@ -239,6 +240,8 @@ sleep(1);
    
 
 
+ 
+ 
  
  //  while(1)
   {
