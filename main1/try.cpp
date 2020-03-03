@@ -1,5 +1,6 @@
 #include<WiringPi.h>
 #include<stdio.h>
+#include<stdlib.h>
 
 #define redEW 18 // Pin 12
 #define redSN=23 // Pin 16
