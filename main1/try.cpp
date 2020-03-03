@@ -90,7 +90,7 @@ delay(10);  //sleep(0.01)=10ms
 while(digitalRead(12==1)&&digitalRead(18==1));// has input signals
 }
 
-2.void sensortimer()
+*/void sensortimer()
 {
 PinMode(23,GPIO.OUTPUT);// pinmode (int pin, int mode), computer control it by 23
 int t1,t=0;
@@ -107,11 +107,11 @@ delay(10);  //sleep(0.01)=10ms
      t=0;
 }
 
- */void GetnewtEW()
+ void GetnewtEW()
  {
   if(t<=1)
+  {
    tgEW=tgEW;// 3 chooses
-    
   }
     else if(t>=1 && t<=2)
     {
@@ -129,17 +129,17 @@ delay(10);  //sleep(0.01)=10ms
  */void GetnewtSN()
  {
   if(t<=1)
+  {
    tgSN=tgSN; // 3 chooses
-    
   }
     else if(t>=1 && t<=2)
     {
    tgSN+=5;
     }
        else if(t>=2)
-  {
+     {
      tgSN+=10; 
-  }
+     }
   t1=tgSN;// change t1 every time
  }
 
@@ -150,7 +150,6 @@ delay(10);  //sleep(0.01)=10ms
   {
  
   auto int tgSN,tgEW,t1;// t1为整体变量，子函数可以调用
- 
   int tr,tg,ty; //timing
 
   if(WiringPiSetup() == -1) //initialize wiringpi store fail or not
