@@ -241,7 +241,7 @@ for(tySN=3,tySN>0,tySN--)
   walk_light:
    
  digitalWrite(18, GPIO.HIGH); // all side greenlight lighting
-    for(tgside=10,tgEW>0,tgEW--)
+    for(tgside=10,tgside>0,tgside--)
   {
   digitalWrite(18, 1);
   digitalWrite(23, 1);
