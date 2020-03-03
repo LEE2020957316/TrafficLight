@@ -12,6 +12,7 @@
 #define sideg 6// Pin 31 BCM !!!
 #define extrasensor1 4//Pin 16
 #define extrasensor2 5 //Pin 18
+#define button 0//Pin 0
 
 
 void SNsensorini()
@@ -68,9 +69,11 @@ PinMode(3,GPIO.OUTPUT);
 digitalWrite(3, GPIO.LOW);
 }
      
-void button()// check the button
+void Button()// check the button
 {
- flag=1;
+  pinMode(0,INPUT); //引脚0为BUTTON输入模式
+  pullUpDnControl(0,PUD_UP); //设置0号引脚上拉,(设置成上拉输入，引脚上就加了一个上拉电阻，那么引脚就默认是高电平，当再去读取这个引脚的时候，
+ //就可以检测到低电平了)
 }
 
 /*1.void sensortimer()
@@ -223,25 +226,27 @@ for(tySN=3,tySN>0,tySN--)
    sensortimer();
  }
     
-  if(button())
+  if(digitalRead(0) == 0)// 检测到低电平
      {
+        delay(20); // 延时销抖, for machine button 
+        if(digitalRead(0) == 0)// 检测到低电平
+        { 
  goto  walk_light;
      }
-    return 0;
- }
-       
-walk_light:
- digitalWrite(18, GPIO.HIGH);
- delay(1000);//sleep(1)? 一秒
+   else 
+       {
+    digitalWrite(18, GPIO.LOW);// no signal was checked, no light respon
+        }
+ 
+  walk_light:
+   
+ digitalWrite(18, GPIO.HIGH); // all side greenlight lighting
     for(tgside=10,tgEW>0,tgEW--)
   {
   digitalWrite(18, 1);
   digitalWrite(23, 1);
   digitalWrite(6, 1); //side green, else red
     }
-  digitalWrite(18, GPIO.LOW);
-  delay(1000);//sleep(1)? 延长一秒等于1000毫秒
- flag=0;
  return 0;
  }
    
