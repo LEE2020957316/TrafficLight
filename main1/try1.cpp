@@ -20,7 +20,7 @@ sleep(0.01);
 
  void Getnewt()
   if(t<=1)
-   tgEW=tgEW||tgSN=tgSN;
+   tgEW=tgEW||tgSN=tgSN;//? 3 chooses
     
   }
     else if(t>=1 && t<=2)
@@ -31,6 +31,9 @@ sleep(0.01);
   {
    tgEW+=10 || tgSN+=10; 
   }
+
+tgEW=(t<=1)? 15:15+(t-1)*10;// 2 chooses
+tgSN=(t<=1)? 15:15+(t-1)*10;
 
 
 /*Struct Time
