@@ -142,9 +142,10 @@ sleep(0.01);
 
 */int main()
   {
- 
+   
+  auto int tgSN tgEW;
   int tr,tg,ty; //timing
- 
+
   if(WiringPiSetup() == -1) //initialize wiringpi store fail or not
  {
   printf("you set up wiringpi failed"); //failed
