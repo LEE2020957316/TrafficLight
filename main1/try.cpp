@@ -73,7 +73,7 @@ void button()// check the button
  flag=1;
 }
 
-/*void sensortimer()
+/*1.void sensortimer()
 {
 PinMode(23,GPIO.OUTPUT);// pinmode (int pin, int mode), computer control it by 23
 int timer=0;
@@ -90,7 +90,22 @@ sleep(0.01);
 while(digitalRead(12==1)&&digitalRead(18==1));// has input signals
 }
 
-
+2.void sensortimer()
+{
+PinMode(23,GPIO.OUTPUT);// pinmode (int pin, int mode), computer control it by 23
+int t=0;
+do
+{
+t=t+0.01;
+sleep(0.01);
+    if(tgEW=tgEW-5 ||tgSN=tgSN-5)// only check for 5 mins each time
+  {
+    break;
+  }
+}while(digitalRead(12==1)&&digitalRead(18==1));// has input signals
+    digitalWrite (23,1); //operate timer;// digitalwrite(int pin, int value)// if value != 0 == high)
+     t=0;
+}
 
  */void GetnewtEW()
   if(t<=1)
