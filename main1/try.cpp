@@ -8,7 +8,7 @@ PinMode(12,GPIO.INPUT)
 PinMode(18,GPIO.INPUT)
 PinMode(2,GPIO.INPUT)
 PinMode(3,GPIO.INPUT)
-  GetnewtSN()
+ GetnewtEW();//EW green, and SN sensortimer star (SN RED)
  }
 
   void EWsesorini()
@@ -17,8 +17,8 @@ PinMode(23,GPIO.INPUT)
 PinMode(25,GPIO.INPUT)
 PinMode(4,GPIO.INPUT)
 PinMode(5,GPIO.INPUT)
- 
-}
+ GetnewtSN();//SN  green, and EW sensortimer star (EW RED)
+ }
 
 void redEWini()
 {
@@ -78,8 +78,40 @@ sleep(0.01);
 while(digitalRead(12==1)&&digitalRead(18==1));// has input signals
 }
 
+ void GetnewtEW()
+  if(t<=1)
+   tgEW=tgEW;// 3 chooses
+    
+  }
+    else if(t>=1 && t<=2)
+    {
+      tgEW+=5; 
+    }
+       else if(t>=2)
+  {
+   tgEW+=10;
+  }
 
-int main()
+/*tgEW=(t<=1)? 15:15+(t-1)*10;// 2 or more chooses
+
+ 
+*/void GetnewtSN()
+  if(t<=1)
+   tgSN=tgSN; // 3 chooses
+    
+  }
+    else if(t>=1 && t<=2)
+    {
+   tgSN+=5;
+    }
+       else if(t>=2)
+  {
+     tgSN+=10; 
+  }
+
+/*tgSN=(t<=1)? 15:15+(t-1)*10;// 2 or more chooses
+
+*/int main()
   {
  
   int tr,tg,ty; //timing
