@@ -1,4 +1,3 @@
-
 #include<WiringPi.h>
 #include<stdio.h>
 
@@ -123,8 +122,7 @@ sleep(0.01);
 
 /*tgEW=(t<=1)? 15:15+(t-1)*10;// 2 or more chooses
 
- 
-*/void GetnewtSN()
+ */void GetnewtSN()
   if(t<=1)
    tgSN=tgSN; // 3 chooses
     
