@@ -68,12 +68,12 @@ PinMode(3,GPIO.OUTPUT);
 digitalWrite(3, GPIO.LOW);
 }
      
-void button()// check button
+void button()// check the button
 {
  flag=1;
 }
 
-void sensortimer()
+/*void sensortimer()
 {
 PinMode(23,GPIO.OUTPUT);// pinmode (int pin, int mode), computer control it by 23
 int timer=0;
@@ -90,7 +90,9 @@ sleep(0.01);
 while(digitalRead(12==1)&&digitalRead(18==1));// has input signals
 }
 
- void GetnewtEW()
+
+
+ */void GetnewtEW()
   if(t<=1)
    tgEW=tgEW;// 3 chooses
     
