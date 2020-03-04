@@ -71,8 +71,8 @@ digitalWrite(3, GPIO.LOW);
      
 void Button()// check the button
 {
-  pinMode(0,GPIO.INPUT); //引脚0为BUTTON输入模式
-  pullUpDnControl(0,PUD_UP); //设置0号引脚上拉,(设置成上拉输入，引脚上就加了一个上拉电阻，那么引脚就默认是高电平，当再去读取这个引脚的时候，
+  pinMode(11,GPIO.INPUT); //引脚0为BUTTON输入模式
+  pullUpDnControl(11,PUD_UP); //设置0号引脚上拉,(设置成上拉输入，引脚上就加了一个上拉电阻，那么引脚就默认是高电平，当再去读取这个引脚的时候，
  //就可以检测到低电平了)
 }
 
