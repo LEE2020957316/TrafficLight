@@ -35,40 +35,65 @@ PinMode(5,GPIO.INPUT)
 
 void redEWini()
 {
-PinMode(18,GPIO.OUTPUT);
-digitalWrite(18, GPIO.LOW);
+PinMode(1,GPIO.OUTPUT);
+digitalWrite(1, GPIO.LOW);
+ redSNini();
+  greenEWini();
+   greenSNini();
+   yellowEWini();
+   yellowSNini();
 }
 
 void redSNini()
 {
-PinMode(23,GPIO.OUTPUT);
-digitalWrite(23, GPIO.LOW);
+PinMode(4,GPIO.OUTPUT);
+digitalWrite(4, GPIO.LOW);
+  greenEWini();
+   greenSNini();
+   yellowEWini();
+   yellowSNini();
 }
 
 void greenEWini()
 {
 PinMode(25,GPIO.OUTPUT);
 digitalWrite(23, GPIO.LOW);
+  redEWini();
+ redSNini();
+   yellowEWini();
+   yellowSNini();
 }
 
 void greenSNini()
 {
-PinMode(12,GPIO.OUTPUT);
-digitalWrite(12, GPIO.LOW);
+PinMode(26,GPIO.OUTPUT);
+digitalWrite(26, GPIO.LOW);
+  redEWini();
+ redSNini();
+   yellowEWini();
+   yellowSNini();
 }
 
 void yellowEWini()
 {
 PinMode(2,GPIO.OUTPUT);
 digitalWrite(2, GPIO.LOW);
+  redEWini();
+ redSNini();
+  greenEWini();
+   greenSNini();
 }
 
 void yellowSNini()
 {
 PinMode(3,GPIO.OUTPUT);
 digitalWrite(3, GPIO.LOW);
+  redEWini();
+ redSNini();
+  greenEWini();
+   greenSNini();
 }
-     
+
 void Button()// check the button
 {
   pinMode(11,GPIO.INPUT); //引脚0为BUTTON输入模式
@@ -161,17 +186,17 @@ delay(10);  //sleep(0.01)=10ms
   return 1;
  }
 
-PinMode(18,GPIO.OUTPUT);
-PinMode(23,GPIO.OUTPUT);
-PinMode(25,GPIO.OUTPUT);
-PinMode(12,GPIO.OUTPUT);
+PinMode(1,GPIO.OUTPUT);
+PinMode(4,GPIO.OUTPUT);
+PinMode(6,GPIO.OUTPUT);
+PinMode(26,GPIO.OUTPUT);
 PinMode(2,GPIO.OUTPUT);
 PinMode(3,GPIO.OUTPUT);
 
-  digitalWrite(18, GPIO.LOW); //Initialize
-  digitalWrite(23, GPIO.LOW);
-  digitalWrite(25, GPIO.LOW);
-  digitalWrite(12, GPIO.LOW);
+  digitalWrite(1, GPIO.LOW); //Initialize
+  digitalWrite(4, GPIO.LOW);
+  digitalWrite(6, GPIO.LOW);
+  digitalWrite(26, GPIO.LOW);
   digitalWrite(2, GPIO.LOW);
   digitalWrite(3, GPIO.LOW);
   
@@ -183,8 +208,8 @@ PinMode(3,GPIO.OUTPUT);
   redEWini();
   for (tr=3,tr>0,tr--)
   {
-  digitalWrite(18,1);
-  digitalWrite(23, 1);
+  digitalWrite(1,1);
+  digitalWrite(4, 1);
   digitalWrite(5, 1); // all red
   }
   
@@ -193,17 +218,18 @@ PinMode(3,GPIO.OUTPUT);
   SNsensorini(); //EW green, and SN sensortimer star 
   for(tgEW=10,tgEW>0,tgEW--)
 {
-   digitalWrite(25, 1);
-  digitalWrite(23, 1);
+   digitalWrite(6, 1);
+  digitalWrite(4, 1);
   digitalWrite(5, 1); //EW green, else red
    sensortimer();
 }
 
- redSNini();
+ yellowEWini();
+ //redSNini();
 for(tyEW=3,tyEW>0,tyEW--)
  {
  digitalWrite(2, 1);
-  digitalWrite(23, 1);
+  //digitalWrite(4, 1);
   digitalWrite(5, 1); //EW yellow, else red
   }
   
@@ -212,15 +238,16 @@ for(tyEW=3,tyEW>0,tyEW--)
    EWsesorini(); // SN green, and EW sensortimer star 
     for(tgSN=10,tgSN>0,tgSN--)
   {
-  digitalWrite(18, 1);
- digitalWrite(12, 1);
+  digitalWrite(1, 1);
+ digitalWrite(26, 1);
   digitalWrite(5, 1); //SN green, else red;
    }
    
-   redEWini();
+  yelloeSNini();
+//redEWini();
 for(tySN=3,tySN>0,tySN--)
  {
-  digitalWrite(18, 1);
+  //digitalWrite(1, 1);
   digitalWrite(3, 1);
   digitalWrite(5, 1); //SN yellow, else red
    sensortimer();
@@ -235,8 +262,8 @@ for(tySN=3,tySN>0,tySN--)
      }
    else 
        {
-       digitalWrite(18, GPIO.LOW);// no signal was checked, no light respon
-       digitalWrite(23, GPIO.LOW);
+       digitalWrite(1, GPIO.LOW);// no signal was checked, no light respon
+       digitalWrite(4, GPIO.LOW);
        digitalWrite(6, GPIO.LOW);
         }
  
@@ -244,8 +271,8 @@ for(tySN=3,tySN>0,tySN--)
    //digitalWrite(18, GPIO.HIGH); // all side greenlight lighting
     for(tgside=10,tgside>0,tgside--)
   {
-  digitalWrite(18, 1);
-  digitalWrite(23, 1);
+  digitalWrite(1, 1);
+  digitalWrite(4, 1);
   digitalWrite(6, 1); //side green, else red
     }
  return 0;
