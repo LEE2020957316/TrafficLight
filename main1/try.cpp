@@ -12,7 +12,7 @@
 #define sideg 6// Pin 31 BCM !!!
 #define extrasensor1 4//Pin 16
 #define extrasensor2 5 //Pin 18
-#define button 0//Pin 0
+#define button 11//Pin 11
 
 
 void SNsensorini()
