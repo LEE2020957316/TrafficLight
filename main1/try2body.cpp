@@ -24,8 +24,11 @@ PinMode(3,GPIO.OUTPUT);
   digitalWrite(2, GPIO.LOW);
   digitalWrite(3, GPIO.LOW);
   
- 
-   while true // intialize succeed
+  thread t1()//car,sidewalk ?
+    thread t2()// button read
+     thread t3()// sensor read
+   
+  while true // intialize succeed
   {
    
   redSNini();
