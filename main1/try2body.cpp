@@ -24,9 +24,8 @@ PinMode(3,GPIO.OUTPUT);
   digitalWrite(2, GPIO.LOW);
   digitalWrite(3, GPIO.LOW);
   
-  thread t1()//car,sidewalk ?
-    thread t2()// button read
-     thread t3()// sensor read
+  thread t1()// S OR E sensor read// IO bound, read at same time and only for join once?
+     thread t2()// N OR W sensor read
    
   while true // intialize succeed
   {
