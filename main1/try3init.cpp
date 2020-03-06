@@ -1,7 +1,7 @@
 class TL{
  public:
 
-void SNsensorini()()
+void SNsensorini()//SN sensor IO bound?
  {
 PinMode(12,GPIO.INPUT)
 PinMode(18,GPIO.INPUT)
@@ -10,7 +10,7 @@ PinMode(3,GPIO.INPUT)
  GetnewtEW();//EW green, and SN sensortimer star (SN RED)
  }
 
-  void EWsesorini()
+  void EWsesorini()//EW sensor IO bound? multiple th process at same time?
 {
 PinMode(23,GPIO.INPUT)
 PinMode(25,GPIO.INPUT)
