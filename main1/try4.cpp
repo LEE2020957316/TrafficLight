@@ -1,7 +1,7 @@
 #include<WiringPi.h>
 #include<stdio.h>
 #include<iostream>
-#includ<theread>
+#include<thread>
 
 
 #define redEW 18 // Pin 12
