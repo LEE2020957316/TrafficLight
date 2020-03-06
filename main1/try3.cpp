@@ -84,7 +84,7 @@ void Button()// check the button
  //就可以检测到低电平了)
 }
 
-*/void sensortimer()
+void sensortimer()
 {
 PinMode(23,GPIO.OUTPUT);// pinmode (int pin, int mode), computer control it by 23
 int t1,t=0;
