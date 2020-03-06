@@ -1,4 +1,7 @@
-void SNsensorini()
+class TL{
+ public:
+
+void SNsensorini()()
  {
 PinMode(12,GPIO.INPUT)
 PinMode(18,GPIO.INPUT)
