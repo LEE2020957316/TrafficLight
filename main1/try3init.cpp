@@ -1,6 +1,7 @@
 class TL{
+ private:
+ mutex car_SN_,  mutex car_EW_,  mutex side_,
  public:
-
 void SNsensorini()//SN sensor IO bound?
  {
 PinMode(12,GPIO.INPUT)
