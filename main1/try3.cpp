@@ -83,3 +83,53 @@ void Button()// check the button
   pullUpDnControl(11,PUD_UP); //设置0号引脚上拉,(设置成上拉输入，引脚上就加了一个上拉电阻，那么引脚就默认是高电平，当再去读取这个引脚的时候，
  //就可以检测到低电平了)
 }
+
+*/void sensortimer()
+{
+PinMode(23,GPIO.OUTPUT);// pinmode (int pin, int mode), computer control it by 23
+int t1,t=0;
+do
+{
+t=t+0.01;
+delay(10);  //sleep(0.01)=10ms 
+    if(tgEW=t1-5 ||tgSN=t1-5)// only check for 5 mins each time
+  {
+    break;
+  }
+}while(digitalRead(12==1)&&digitalRead(18==1));// has input signals
+    digitalWrite (23,1); //operate timer;// digitalwrite(int pin, int value)// if value != 0 == high)
+     t=0;
+}
+
+ void GetnewtEW()
+ {
+  if(t<=1)
+  {
+   tgEW=tgEW;// 3 chooses
+  }
+    else if(t>=1 && t<=2)
+    {
+      tgEW+=5; 
+    }
+       else if(t>=2)
+  {
+   tgEW+=10;
+  }
+  t1=tgEW;// change t1 every time
+ }
+ void GetnewtSN()
+ {
+  if(t<=1)
+  {
+   tgSN=tgSN; // 3 chooses
+  }
+    else if(t>=1 && t<=2)
+    {
+   tgSN+=5;
+    }
+       else if(t>=2)
+     {
+     tgSN+=10; 
+     }
+  t1=tgSN;// change t1 every time
+ }
