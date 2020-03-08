@@ -97,3 +97,9 @@ void button()
 flag=1;
 }
 
+      
+      
+class GutNT{
+ private:
+ mutex car_SN_,  mutex car_EW_,  mutex side_,
+ public:
