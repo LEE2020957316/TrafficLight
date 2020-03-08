@@ -1,7 +1,4 @@
-class TL{
- private:
- mutex car_SN_,  mutex car_EW_,  mutex side_,
- public:
+
 void SNsensorini()//SN sensor IO bound?
  {
 PinMode(12,GPIO.INPUT)
@@ -88,6 +85,11 @@ void Button()// check the button
  //就可以检测到低电平了)
 }
 
+
+class GutNT{
+ private:
+ mutex car_SN_,  mutex car_EW_,  mutex side_,
+ public:
 void sensortimer()
 {
 PinMode(23,GPIO.OUTPUT);// pinmode (int pin, int mode), computer control it by 23
