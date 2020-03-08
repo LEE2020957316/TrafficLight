@@ -24,13 +24,13 @@ void redEWini()
 {
 PinMode(1,GPIO.OUTPUT);
 digitalWrite(1, GPIO.LOW);
- redSNini();
+  redSNini();
   greenEWini();
+   yellowSNini();
    greenSNini();
    yellowEWini();
-   yellowSNini();
 }
-
+ 
 void redSNini()
 {
 PinMode(4,GPIO.OUTPUT);
