@@ -86,10 +86,7 @@ void Button()// check the button
 }
 
 
-class GutNT{
- private:
- mutex car_SN_,  mutex car_EW_,  mutex side_,
- public:
+
 void sensortimer()
 {
 PinMode(23,GPIO.OUTPUT);// pinmode (int pin, int mode), computer control it by 23
@@ -107,7 +104,13 @@ delay(10);  //sleep(0.01)=10ms
      t=0;
 }
 
- void GetnewtEW()
+class GutNT{
+
+// private:
+ //mutex car_SN_,  mutex car_EW_,
+ public:
+
+ void GutNT::GetnewtEW(int& x)
  {
   if(t<=1)
   {
@@ -123,7 +126,7 @@ delay(10);  //sleep(0.01)=10ms
   }
   t1=tgEW;// change t1 every time
  }
- void GetnewtSN()
+ void GutNT:: GetnewtSN(int& x)
  {
   if(t<=1)
   {
