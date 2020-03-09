@@ -86,9 +86,9 @@ void Button()// check the button
 }
 
 class GetNT{
- private:mutex car_x1_,  mutex car_x2_,
+ private:mutex car_x1_,  mutex car_x2_, mutex cp_, mutex gnt_;
 public:
- GutNT():{mutex car_x2_lock();}
+ GutNT():{mutex car_x2_lock(); mutex cp_lock(); mutex gnt_lock();}
 void sensortimer1(int& t0)
 {
 PinMode(23,GPIO.OUTPUT);// pinmode (int pin, int mode), computer control it by 23
@@ -97,15 +97,15 @@ do
 {
 t0=t0+0.01;
 delay(10);  //sleep(0.01)=10ms 
-    if(tgEW=t1-5 ||tgSN=t1-5)// only check for 5 mins each time
+    if(tgEW=t-5 ||tgSN=t-5)// only check for 5 mins each time
   {
     break;
   }
 }while(digitalRead(18==1));// has input signals
      mutex car_x1_lock();
     digitalWrite (23,1); //operate timer;// digitalwrite(int pin, int value)// if value != 0 == high)
-      mutex car_x2_unlock();
-     t0=0;
+   mutex car_x2_unlock();
+   t0=0;
 }
 
 void sensortimer2(int t1)
@@ -116,21 +116,28 @@ do
 {
 t=t+0.01;
 delay(10);  //sleep(0.01)=10ms 
-    if(tgEW=t1-5 ||tgSN=t1-5)// only check for 5 mins each time
+    if(tgEW=t-5 ||tgSN=t-5)// only check for 5 mins each time
   {
     break;
   }
 }while(digitalRead(12==1);// has input signals
        mutex car_x2_lock();
-    digitalWrite (23,1); //operate timer;// digitalwrite(int pin, int value)// if value != 0 == high). 
+    digitalWrite (23,1); //operate timer;// digitalwrite(int pin, int value)// if value != 0 == high).
+       mutex cp_unlock();
      t1=0;
+       
 }
-
-
- void Getnewt(GetNT& get, int t3)
- {
-  get.sensortimer1()
-    get.sensortimer2()
+void comp()
+       {
+        mutex cp_lock();
+        if(t0>=t1){ t3=t0;}
+        else{t3=t1;}
+        mutex gnt_unlock();
+       }
+       
+   void Getnewt(GetNT& get)
+  {
+  mutex gnt_lock();
   if(t<=1)
   {
    t3=t3;// 3 chooses
@@ -143,6 +150,7 @@ delay(10);  //sleep(0.01)=10ms
   {
      t3+=10;
   }
+   t=t3;
  }
  
        
