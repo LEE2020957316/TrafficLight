@@ -26,7 +26,9 @@ PinMode(3,GPIO.OUTPUT);
   
   std::thread t1(GutNT() ,std::ref(tySN))// S OR E sensor read// IO bound, read at same time and only for join once?
    std::thread t2(GutNT() ,std::ref(tyEW))// N OR W sensor read
-   
+       t1.join();
+        t2.join();
+ 
   while true // intialize succeed
   {
    
