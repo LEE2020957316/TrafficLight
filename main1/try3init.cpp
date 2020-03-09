@@ -129,6 +129,8 @@ delay(10);  //sleep(0.01)=10ms
 
  void Getnewt(GetNT& get, int t3)
  {
+  get.sensortimer1()
+    get.sensortimer2()
   if(t<=1)
   {
    t3=t3;// 3 chooses
