@@ -105,7 +105,7 @@ delay(10);  //sleep(0.01)=10ms
      mutex car_x1_lock();
     digitalWrite (23,1); //operate timer;// digitalwrite(int pin, int value)// if value != 0 == high)
       mutex car_x2_unlock();
-     t=0;
+     t0=0;
 }
 
 void sensortimer2(int t1)
@@ -123,7 +123,7 @@ delay(10);  //sleep(0.01)=10ms
 }while(digitalRead(12==1);// has input signals
        mutex car_x2_lock();
     digitalWrite (23,1); //operate timer;// digitalwrite(int pin, int value)// if value != 0 == high). 
-     t=0;
+     t1=0;
 }
 
 
