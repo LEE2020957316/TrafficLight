@@ -24,8 +24,8 @@ PinMode(3,GPIO.OUTPUT);
   digitalWrite(2, GPIO.LOW);
   digitalWrite(3, GPIO.LOW);
   
-  thread t1(  ,std::ref(tySN))// S OR E sensor read// IO bound, read at same time and only for join once?
-     thread t2(  ,std::ref(tySN))// N OR W sensor read
+  std::thread t1(GutNT() ,std::ref(tySN))// S OR E sensor read// IO bound, read at same time and only for join once?
+   std::thread t2(GutNT() ,std::ref(tyEW))// N OR W sensor read
    
   while true // intialize succeed
   {
