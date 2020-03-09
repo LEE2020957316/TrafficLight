@@ -127,7 +127,7 @@ delay(10);  //sleep(0.01)=10ms
      t1=0;
        
 }
-void comp()
+void comp( )
        {
         mutex cp_lock();
         if(t0>=t1){ t3=t0;}
@@ -135,18 +135,18 @@ void comp()
         mutex gnt_unlock();
        }
        
-   void Getnewt(GetNT& get)
+   void Getnewt(GetNT& get, int t3)
   {
   mutex gnt_lock();
-  if(t<=1)
+  if(t0<=1)
   {
    t3=t3;// 3 chooses
   }
-    else if(t>=1 && t<=2)
+    else if(t0>=1 && t0<=2)
     {
       t3+=5; 
     }
-      else if(t>=2)
+      else if(t0>=2)
   {
      t3+=10;
   }
@@ -175,3 +175,30 @@ void comp()
  //mutex car_SN_,  mutex car_EW_,
  
    t1=tgEW;// change t1 every time
+   
+   void comp()
+       {
+        mutex cp_lock();
+        if(t0>=t1){ t3=t0;}
+        else{t3=t1;}
+        mutex gnt_unlock();
+       }
+       
+   void Getnewt(GetNT& get)
+  {
+  mutex gnt_lock();
+  if(t<=1)
+  {
+   t3=t3;// 3 chooses
+  }
+    else if(t>=1 && t<=2)
+    {
+      t3+=5; 
+    }
+      else if(t>=2)
+  {
+     t3+=10;
+  }
+   t=t3;
+ }
+ 
