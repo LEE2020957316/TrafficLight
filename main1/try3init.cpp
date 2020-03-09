@@ -130,12 +130,13 @@ delay(10);  //sleep(0.01)=10ms
 void comp( )
        {
         mutex cp_lock();
-        if(t0>=t1){ t3=t0;}
-        else{t3=t1;}
-        mutex gnt_unlock();
-       }
+        if(t0>=t1){ mutex gnt_lock(); }
+        else{t0=t1; 
+             mutex gnt_unlock();
+            }
+        }
        
-   void Getnewt(GetNT& get, int t3)
+   void Getnewt(int& t3)
   {
   mutex gnt_lock();
   if(t0<=1)
