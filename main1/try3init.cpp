@@ -85,17 +85,17 @@ void Button()// check the button
  //就可以检测到低电平了)
 }
 
-class GutNT{
+class GetNT{
  private:mutex car_x1_,  mutex car_x2_,
 public:
  GutNT():{mutex car_x2_lock();}
-void sensortimer1()
+void sensortimer1(int& t0)
 {
 PinMode(23,GPIO.OUTPUT);// pinmode (int pin, int mode), computer control it by 23
-int t1,t=0;
+int t0=0;
 do
 {
-t=t+0.01;
+t0=t0+0.01;
 delay(10);  //sleep(0.01)=10ms 
     if(tgEW=t1-5 ||tgSN=t1-5)// only check for 5 mins each time
   {
@@ -108,10 +108,10 @@ delay(10);  //sleep(0.01)=10ms
      t=0;
 }
 
-void sensortimer2()
+void sensortimer2(int t1)
 {
 PinMode(23,GPIO.OUTPUT);// pinmode (int pin, int mode), computer control it by 23
-int t1,t=0;
+int t1=0;
 do
 {
 t=t+0.01;
@@ -127,25 +127,41 @@ delay(10);  //sleep(0.01)=10ms
 }
 
 
-
-// private:
- //mutex car_SN_,  mutex car_EW_,
- public:
-
- void GutNT::Getnewt(int& t)
+ void Getnewt(GetNT& get, int t3)
  {
   if(t<=1)
   {
-   tgEW=tgEW;// 3 chooses
+   t3=t3;// 3 chooses
   }
     else if(t>=1 && t<=2)
     {
-      tgEW+=5; 
+      t3+=5; 
     }
-       else if(t>=2)
+      else if(t>=2)
   {
-   tgEW+=10;
+     t3+=10;
   }
-  t1=tgEW;// change t1 every time
  }
  
+       
+      /*void GetnewtSN()
+ {
+  if(t<=1)
+  {
+   tgSN=tgSN; // 3 chooses
+  }
+    else if(t>=1 && t<=2)
+    {
+   tgSN+=5;
+    }
+       else if(t>=2)
+     {
+     tgSN+=10; 
+     }
+  t1=tgSN;// change t1 every time
+ } 
+
+// private:
+ //mutex car_SN_,  mutex car_EW_,
+ 
+   t1=tgEW;// change t1 every time
