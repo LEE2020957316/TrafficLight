@@ -17,18 +17,18 @@
 
 void SNsensorini()
  {
-PinMode(12,GPIO.INPUT)
-PinMode(18,GPIO.INPUT)
-PinMode(2,GPIO.INPUT)
-PinMode(3,GPIO.INPUT)
+PinMode(6,GPIO.INPUT)
+PinMode(4,GPIO.INPUT)
+PinMode(23,GPIO.INPUT)
+PinMode(27,GPIO.INPUT)
  GetnewtEW();//EW green, and SN sensortimer star (SN RED)
  }
 
   void EWsesorini()
 {
+PinMode(26,GPIO.INPUT)
+PinMode(1,GPIO.INPUT)
 PinMode(23,GPIO.INPUT)
-PinMode(25,GPIO.INPUT)
-PinMode(4,GPIO.INPUT)
 PinMode(5,GPIO.INPUT)
  GetnewtSN();//SN  green, and EW sensortimer star (EW RED)
  }
@@ -36,7 +36,7 @@ PinMode(5,GPIO.INPUT)
 void redEWini()
 {
 PinMode(1,GPIO.OUTPUT);
-digitalWrite(1, GPIO.LOW);
+digitalWrite(23, GPIO.LOW);
  redSNini();
   greenEWini();
    greenSNini();
@@ -47,7 +47,7 @@ digitalWrite(1, GPIO.LOW);
 void redSNini()
 {
 PinMode(4,GPIO.OUTPUT);
-digitalWrite(4, GPIO.LOW);
+digitalWrite(23, GPIO.LOW);
   greenEWini();
    greenSNini();
    yellowEWini();
@@ -57,7 +57,7 @@ digitalWrite(4, GPIO.LOW);
 void greenEWini()
 {
 PinMode(25,GPIO.OUTPUT);
-digitalWrite(23, GPIO.LOW);
+digitalWrite(27, GPIO.LOW);
   redEWini();
  redSNini();
    yellowEWini();
@@ -67,7 +67,7 @@ digitalWrite(23, GPIO.LOW);
 void greenSNini()
 {
 PinMode(26,GPIO.OUTPUT);
-digitalWrite(26, GPIO.LOW);
+digitalWrite(5, GPIO.LOW);
   redEWini();
  redSNini();
    yellowEWini();
