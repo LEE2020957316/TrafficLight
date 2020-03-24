@@ -6,17 +6,24 @@ public:
   A(int t):{mutex car_x2_lock(); mutex cp_lock(); mutex gnt_lock();}
   void input()
   {
-    if digitalRead(18==(1)){
+    if (digitalRead(18==(1)){
     Counter.push_back(1);// 收到的信号-> 队列
   }
     else 
-      Counter.push_back(0);
+      Counter.push_back(0);// with order
   }
 
   void output()
   {
-    
-void sensortimer1(int& t0)
+   int order=0;
+    if (!Counter.empty())
+    {
+     int order= Counter.front();// 按顺序从头开始取数组元素
+     Counter.pop_front();//remove element
+     
+
+
+  void sensortimer1(int& t0)
 {
 PinMode(23,GPIO.OUTPUT);// pinmode (int pin, int mode), computer control it by 23
 int t0=0;
