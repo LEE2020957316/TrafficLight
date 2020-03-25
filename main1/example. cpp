@@ -80,8 +80,8 @@ void DemoThread::run() { // 类DT的构造函数.
 
 
 int main( int argc, const char* argv[] ) {
-	DemoThread demoThread1(0); offset= 0.
-	DemoThread demoThread2(10);
+	DemoThread demoThread1(0);//1. offset= 0； 2.且创建了类对象。
+	DemoThread demoThread2(10); //offset= 10
 	DemoThread demoThread3(20);
 	demoThread1.start();// the same with join.
 	demoThread2.start();// use join.
