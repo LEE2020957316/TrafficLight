@@ -1,0 +1,49 @@
+#ifndef __CPP_THREAD_H_
+#define __CPP_THREAD_H_
+
+/**
+ * GNU GENERAL PUBLIC LICENSE
+ * Version 3, 29 June 2007
+ *
+ * (C) 2020, Bernd Porr <mail@bernporr.me.uk>
+ **/
+
+#include <thread>
+
+// abstract thread which contains the inner workings of the thread model
+class CppThread {
+
+public:
+	void start() {
+		uthread = new std::thread(CppThread::exec, this); //this：lambda函数， new：分配给指针指向类的地址
+	}
+
+	void join() {
+		uthread->join(); ////在类CppThread 中调用 run 函数 
+		delete uthread;
+		uthread = NULL;
+	}
+
+	CppThread() {};
+	
+	virtual ~CppThread() { // 析构函数，在类？执行释放指针
+		if (uthread) {
+			delete uthread;
+		}
+	}
+
+protected:
+	// is implemented by its ancestors
+	virtual void run() = 0;	
+
+private:
+	std::thread* uthread = NULL;
+
+	// static function which points back to the class
+	static void exec(CppThread* cppThread) {
+		cppThread->run(); //在类CppThread 中调用 run 函数
+	}
+};
+
+
+#endif
