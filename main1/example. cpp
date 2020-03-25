@@ -19,7 +19,7 @@ public:
 	}
 
 	void join() {
-		uthread->join(); ////在类CppThread 中调用 run 函数 
+		uthread->join(); ////在类CppThread 中调用join函数 
 		delete uthread;
 		uthread = NULL;
 	}
