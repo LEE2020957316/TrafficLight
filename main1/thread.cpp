@@ -2,11 +2,12 @@ class A{
  private: int x, t;
   mutex car_x1_,  mutex car_x2_, mutex cp_, mutex gnt_;
   std::list<int> Counter;//容器，数组
+ std::list<int> Counter1;
 public: 
   A(int t):{mutex car_x2_lock(); mutex cp_lock(); mutex gnt_lock();}// 构造函数
   void input()
   {
-    if (digitalRead(18==(1)){
+    if (digitalRead((18)== 1){
     Counter.push_back(1);// 收到的信号-> 队列
   }
     else 
