@@ -20,8 +20,10 @@ public:
     {
      int order= Counter.front();// 按顺序从头开始取数组元素
      Counter.pop_front();//remove element
-     
+    }
 
+   
+   
 
   void sensortimer1(int& t0)
 {
@@ -88,5 +90,24 @@ void comp( )
    t=t3;
  }
        
-       
+   std::this_thread::sleep_for(std::chrono::milliseconds(10));    
   std::this_thread::sleep_for(std::chrono::milliseconds(10));// make thread sleep for 3 ms(can both add in void /main after thread.
+       
+  auto int tgSN,tgEW,t1;// t1为整体变量，子函数可以调用
+  int tr,tg,ty; //timing
+
+  if(WiringPiSetup() == -1) //initialize wiringpi store fail or not
+ {
+  printf("you set up wiringpi failed"); //failed
+  return 1;
+ }
+
+  
+int main()
+  {
+ A gett;
+  std::thread t1(&A::input, std::ref(gett))// S OR E sensor read// IO bound, read at same time and only for join once?
+   std::thread t2(&A::output, std::ref(gett))// N OR W sensor read
+       t1.join();
+        t2.join();
+  }
