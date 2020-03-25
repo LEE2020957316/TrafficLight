@@ -1,30 +1,34 @@
 class A{
  private: int x, t;
-  mutex car_x1_,  mutex car_x2_, mutex cp_, mutex gnt_;
+ std::mutex car_x1_,  std::mutex car_x2_, mutex cp_, std:: mutex gnt_;
   std::list<int> Counter;//容器，数组
  std::list<int> Counter1;
 public: 
-  A(int t):{mutex car_x2_lock(); mutex cp_lock(); mutex gnt_lock();}// 构造函数
+  //A(int t):{mutex car_x2_lock(); mutex cp_lock(); mutex gnt_lock();}// 构造函数
   void input()
   {
+   mutex gnt.lock();
     if (digitalRead((18)== 1){
     Counter.push_back(1);// 收到的信号-> 队列
+     mutex gnt.unlock();
   }
     else 
       Counter.push_back(0);// with order
+         mutex gnt.unlock();
   }
-
-  void output()
-  {
-   int order=0;
-    if (!Counter.empty())
+ bool output(int &t0){if (!Counter.empty())
     {
      int order= Counter.front();// 按顺序从头开始取数组元素
      Counter.pop_front();//remove element
     }
-
-   
-   
+         }
+        
+  void read()
+  {
+   int order=0;
+    
+   friend class B;// B可以访问A的私有成员。
+  }
 
   void sensortimer1(int& t0)
 {
