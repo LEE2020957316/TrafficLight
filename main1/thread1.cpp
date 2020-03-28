@@ -1,7 +1,7 @@
  
 
 {
- public: 	
+ public: void Yellow();	
   auto int tgSN,tgEW,t1;// t1为整体变量，子函数可以调用
   int tr,tg,ty; //timing
 
@@ -17,6 +17,7 @@
   digitalWrite(5, 1); // all red
   }
   
+	   
   greenEWini();
   redSNini();
   SNsensorini(); //EW green, and SN sensortimer star 
@@ -40,6 +41,8 @@
    
    void Yellow()
    {
+   PinMode(2,OUTPUT);
+    digitalWrite(2, LOW); 
 for (ty>=0,ty=3,ty--) // quan 
  {
   //digitalWrite(1, 1);
