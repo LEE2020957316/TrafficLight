@@ -9,7 +9,7 @@ public:
     this->tgEW= tgEW;
     this->tg= tg;
    }
-  public:
+ public:
   void redEWini()
 {
 PinMode(1,OUTPUT);
@@ -27,10 +27,14 @@ void yellowEWini()
 PinMode(3,OUTPUT);
 digitalWrite(3, LOW);
 }
-    greenEWini();
+  
+  virtual void CounterGR()// EW绿灯亮 
+    {
+      greenEWini();
   redSNini();
-  SNsensorini(); //EW green, and SN sensortimer star 
-  for(tgEW=10,tgEW>0,tgEW--)
+  SNsensorini();
+    tgEW=tg;
+  for(tgEW=10,tgEW>0,tgEW--)//EW green, and SN sensortimer star 
 {
    digitalWrite(6, 1);
   digitalWrite(4, 1);
@@ -68,28 +72,46 @@ for(tyEW=3,tyEW>0,tyEW--)
 PinMode(4,OUTPUT);
 digitalWrite(4, LOW);
 }
-   void redSNL()
-{
-yellowSNini();
-PinMode(4,OUTPUT);
-digitalWrite(4, 1);
-}
    void greenSNini()
 {
 PinMode(26,OUTPUT);
 digitalWrite(26, LOW);
-}
-void greenSNL()
-{
-  PinMode(26,OUTPUT);
-digitalWrite(26, 1)
 }
 void yellowSNini()
 {
 PinMode(2,OUTPUT);
 digitalWrite(2, LOW);
 } 
-   void yellowSNL()
+
+  virtual void CounterGR()// SN绿灯亮
+    {
+   redEWini();
+  greenSNini();
+   EWsesorini(); // SN green, and EW sensortimer star 
+     tgEW= CarLightEW::tg;
+    for(tgSN=10,tgSN>0,tgSN--)
+  {
+  digitalWrite(1, 1);
+ digitalWrite(26, 1);
+  digitalWrite(27, 1); //SN green, else red;
+   }
+
+  virtual void CounterGR() //黄灯亮
+  {
+  yelloeSNini();
+//redEWini();
+for(tySN=3,tySN>0,tySN--)
+ {
+  //digitalWrite(1, 1);
+  digitalWrite(3, 1);
+  //digitalWrite(5, 1); //SN yellow, else red
+   sensortimer();
+ }
+  private:
+     int tgSN;
+     int tySN;
+    
+/*   void yellowSNL()
 {
   //yelloeSNini();// already
     redSNini();
@@ -97,27 +119,3 @@ digitalWrite(2, LOW);
 PinMode(2,OUTPUT);
 digitalWrite(2, 1);
 }  
-
-  redEWini();
-  greenSNini();
-   EWsesorini(); // SN green, and EW sensortimer star 
-    for(tgSN=10,tgSN>0,tgSN--)
-  {
-  digitalWrite(1, 1);
- digitalWrite(26, 1);
-  digitalWrite(27, 1); //SN green, else red;
-   }
- 
-//redEWini();
-    
-  virtual void CounterGR() // 黄灯亮
-  {
-for(tySN=3,tySN>0,tySN--)
- {
-   yellowSNL();
-   sensortimer();
- }  
-  private:
-     int tgSN;
-     int tySN;
-    
