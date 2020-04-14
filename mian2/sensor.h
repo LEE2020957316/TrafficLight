@@ -6,8 +6,9 @@ class SensorES{
      }// pinmode (int pin, int mode), computer control it by 23
     public:
   //void Counter()
-  void GetT(CarLight & Tobj, t1=0;)
-    t1=Tobj.GettgEW();
+  void GetT(t1=0)
+  {
+    t1= CarLight::tg;
     if(Tobj.CounttgEW()-5=0 ||Tobj.CounttgSN()-5=0)// counterv t can not exceed 1 minutes?
   {
    do
@@ -32,10 +33,11 @@ class SensorWN: punlic SensorES
      }// pinmode (int pin, int mode), computer control it by 23
     public:
   //void Counter()
-  void GetT(CarLight & Tobj, t1=0;)
-    t1=Tobj.GettgEW();
+    void GetT(t1=0)
+    {
+    t1= CarLight::tg;
     if(Tobj.CounttgEW()=t1-5 ||Tobj.CounttgSN()=t1-5)// counterv t can not exceed 1 minutes?
-  {
+    {
    do
     {
    t0=t0+0.01;
@@ -67,7 +69,7 @@ class SensorWN: punlic SensorES
  }// 以上为四个sensor线程需要的全部过程：输出时间并计算
 int Gettg(SensorES & Obj1, SensorWN & Obj2)// 作比较 输入对象（同一个类的不同对象），(加锁)
 {
-  int tg=0;
+  int tg=0;//局部变量
   //SensorES tes; SensorWN twn;
   if(Newtg(Obj1)>=Newtg(Obj2))
   { 
