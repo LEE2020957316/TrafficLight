@@ -45,6 +45,7 @@ digitalWrite(3, LOW);
    digitalWrite(6, 1);
   digitalWrite(4, 1);
   digitalWrite(5, 1); //EW green, else red
+     tg--;
    //sensortimer();
 }
  virtual void CounterY() 
@@ -61,6 +62,7 @@ for(tyEW=3,tyEW>0,tyEW--)
   static int tg;
   private:
   int tgEW;
+   int tyEW;
   }
   int CarLightEW::tg=0;//tg initialize.
 
@@ -91,7 +93,7 @@ digitalWrite(2, LOW);
 } 
  void GNewtg(Logical & logical, SensorES & Obj1, SensorWN & Obj2)//时间比较后所得
     {
-    tg=logical.Gettg(Obj1,Obj2);
+   CarLightEW::tg=logical.Gettg(Obj1,Obj2);
     }
   virtual void CounterGR()// SN绿灯亮
     {
@@ -104,6 +106,7 @@ digitalWrite(2, LOW);
   digitalWrite(1, 1);
  digitalWrite(26, 1);
   digitalWrite(27, 1); //SN green, else red;
+      CarLightEW::tg--;
    }
 
   virtual void CounterY() //黄灯亮
