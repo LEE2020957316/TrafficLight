@@ -1,3 +1,6 @@
+#program once
+#include"SensorES.h"
+#include"SensorWN.h"
 class CarLightEW
 {
 public: 
@@ -27,30 +30,34 @@ void yellowEWini()
 PinMode(3,OUTPUT);
 digitalWrite(3, LOW);
 }
+ void GNewtg(Logical & logical, SensorES & Obj1, SensorWN & Obj2)//时间比较后所得
+    {
+    tg=logical.Gettg(Obj1,Obj2);
+    }
   
   virtual void CounterGR()// EW绿灯亮 
     {
-      greenEWini();
+    greenEWini();
   redSNini();
-  SNsensorini();
-    tgEW=tg;
-  for(tgEW=10,tgEW>0,tgEW--)//EW green, and SN sensortimer star 
+  //SNsensorini();
+   for(tgEW=tg,tgEW>0,tgEW--)//EW green, and SN sensortimer star 
 {
    digitalWrite(6, 1);
   digitalWrite(4, 1);
   digitalWrite(5, 1); //EW green, else red
-   sensortimer();
+   //sensortimer();
 }
-
+ virtual void CounterY() 
+ {
  yellowEWini();
  //redSNini();
 for(tyEW=3,tyEW>0,tyEW--)
  {
  digitalWrite(2, 1);
   //digitalWrite(4, 1);
-  //digitalWrite(5, 1); //EW yellow, else red
+  //digitalWrite(5, 1); //EW yellow, else red(不用）
   }
-  protected: 
+  public: 
   static int tg;
   private:
   int tgEW;
@@ -59,7 +66,7 @@ for(tyEW=3,tyEW>0,tyEW--)
 
   class CarLightSN: public CarLightEW
  {
-     CarLightSN(int tgEW=0, int tyEW=3, int tySN=3, int tgSN=0 ):CarLightEW(tgEW, tyEW)
+     CarLightSN(int tgEW=0, int tyEW=3, int tySN=3, int tgSN=0 ): CarLightEW(tgEW, tyEW)
      { 
       redSNini();
       greenSNini();
@@ -82,7 +89,10 @@ void yellowSNini()
 PinMode(2,OUTPUT);
 digitalWrite(2, LOW);
 } 
-
+ void GNewtg(Logical & logical, SensorES & Obj1, SensorWN & Obj2)//时间比较后所得
+    {
+    tg=logical.Gettg(Obj1,Obj2);
+    }
   virtual void CounterGR()// SN绿灯亮
     {
    redEWini();
@@ -96,7 +106,7 @@ digitalWrite(2, LOW);
   digitalWrite(27, 1); //SN green, else red;
    }
 
-  virtual void CounterGR() //黄灯亮
+  virtual void CounterY() //黄灯亮
   {
   yelloeSNini();
 //redEWini();
@@ -111,7 +121,19 @@ for(tySN=3,tySN>0,tySN--)
      int tgSN;
      int tySN;
     
-/*   void yellowSNL()
+/*  int Gettg(SensorES & Obj1, SensorWN & Obj2)// 作比较 输入对象（同一个类的不同对象），(加锁)
+{
+  int tg=0;
+  //SensorES tes; SensorWN twn;
+  if(Newtg(Obj1)>=Newtg(Obj2))
+  { 
+    tg=Newtg(Obj1);
+  }
+  else {tg=Newtg(Obj2);}
+  return tg;
+ }
+ 
+void yellowSNL()
 {
   //yelloeSNini();// already
     redSNini();
