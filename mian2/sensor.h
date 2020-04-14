@@ -25,7 +25,7 @@ class SensorES{
 class SensorWN: punlic SensorES 
 {
  public: 
-  SensorES(int t=0){
+  SensorES(int t0=0){
      t=0;//初始化
     PinMode(23,OUTPUT);
      digitalWrite (23,1);    //operate timer; digitalwrite(int pin, int value)// if value != 0 == high)
@@ -38,14 +38,14 @@ class SensorWN: punlic SensorES
   {
    do
     {
-   t=t+0.01;
+   t0=t0+0.01;
    ds delay(10);  //sleep(0.01)=10ms
   }while(digitalRead(18==(1)));// has input signals
     }
   virtual int outputT()
-    { reture t; }
+    { reture t0; }
   private: 
-  int t;
+  int t0;
   
  void Getnewt(SensorES & Ts, CarLight & Tc)
  {
