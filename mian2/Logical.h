@@ -1,6 +1,6 @@
 class Logical{
   public:
-  void Gettg(){}
+  void Gettg(){}//？！ 写在sensor 下面的函数 比较
   private:
   lock
     CarLightEW C;
