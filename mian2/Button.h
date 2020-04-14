@@ -1,5 +1,11 @@
 class Button{
-  if(digitalRead(0) == 0)// 检测到低电平
+  void Button()// check the button
+{
+  Button(){
+    pinMode(0,INPUT); //引脚0为BUTTON输入模式
+  pullUpDnControl(0,PUD_UP); //设置0号引脚上拉,(设置成上拉输入，引脚上就加了一个上拉电阻，那么引脚就默认是高电平，当再去读取这个引脚的时候，
+   }
+    if(digitalRead(0) == 0)// 检测到低电平
      {
         delay(20); // 延时销抖, for machine button 
         if(digitalRead(0) == 0)// 检测到低电平
