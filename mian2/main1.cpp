@@ -380,10 +380,10 @@ int main()
   return 1;
   LogicalMutex LM;
   std::thread t1(&LogicalMutex::SensorW,std::ref(LM));
-   std::thread t2(&LogicalMutex::SensorE,std::ref(LM);
-   std::thread t3(&LogicalMutex::SensorS,std::ref(LM);
-   std::thread t4(&LogicalMutex::SensorN,std::ref(LM);//第二个参数，保证线程里用的同一个对象
-   std::thread t5((&LogicalMutex::WLAB,std::ref(LM);
+   std::thread t2(&LogicalMutex::SensorE,std::ref(LM));
+   std::thread t3(&LogicalMutex::SensorS,std::ref(LM));
+   std::thread t4(&LogicalMutex::SensorN,std::ref(LM));//第二个参数，保证线程里用的同一个对象
+   std::thread t5((&LogicalMutex::WLAB,std::ref(LM));
    std::thread t6((&LogicalMutex::CL,std::ref(LM));
        t1.join();
         t2.join();
