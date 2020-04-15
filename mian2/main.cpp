@@ -19,7 +19,7 @@ using namespace std;
 #define extrasensor2 5 //Pin 18
 #define button 11//Pin 11
 
-class CarLightEW
+class CarLightEW // 车行道红绿灯
 {
  void Gettg(CarLightEW*, SensorES &, SensorWN & );
 public: 
@@ -49,6 +49,7 @@ void yellowEWini()
 PinMode(3,OUTPUT);
 digitalWrite(3, LOW);
 }
+ 
   virtual void CounterGR()// EW绿灯亮 
     {
     greenEWini();
@@ -60,8 +61,11 @@ digitalWrite(3, LOW);
   digitalWrite(4, 1);
   digitalWrite(5, 1); //EW green, else red
      tg--;
-   //sensortimer();
-}
+    if(CarLightEW::tg<=5 && tg>0)// counterv t can not exceed 1 minutes?
+      { obj.InputT();}// 五秒倒计时开始传+
+    //sensortimer();
+   }
+   
  virtual void CounterY() 
  {
  yellowEWini();
@@ -106,104 +110,76 @@ PinMode(2,OUTPUT);
 digitalWrite(2, LOW);
 } 
 
-  virtual void CounterGR()// SN绿灯亮
+  virtual void CounterGR(SensorES& obj)// SN绿灯亮
     {
    redEWini();
   greenSNini();
    EWsesorini(); // SN green, and EW sensortimer star 
-     
-    for(tgEW=CarLightEW::tg; tgSN>0; tgSN--)
-  {
-  digitalWrite(1, 1);
- digitalWrite(26, 1);
-  digitalWrite(27, 1); //SN green, else red;
+  for(tgEW=CarLightEW::tg; tgSN>0; tgSN--)
+   {
+     digitalWrite(1, 1);
+    digitalWrite(26, 1);
+    digitalWrite(27, 1); //SN green, else red;
       CarLightEW::tg--;
-   }
+  if(CarLightEW::tg<=5 && tg>0)// counterv t can not exceed 1 minutes?
+      { obj.InputT();}// 五秒倒计时开始传
+    }
+   
 virtual void CounterY() //黄灯亮
   {
   yelloeSNini();
 //redEWini();
-for(tySN=3;tySN>0;tySN--)
- {
+ for(tySN=3;tySN>0;tySN--)
+   {
   //digitalWrite(1, 1);
   digitalWrite(3, 1);
   //digitalWrite(5, 1); //SN yellow, else red
    sensortimer();
- }
+   }
   private:
      int tgSN;
      int tySN;
      
-   class SensorES{
-  public: 
-  SensorES(int t=0){
-     t=0;//初始化
-    PinMode(23,OUTPUT);
-     }// pinmode (int pin, int mode), computer control it by 23
-    public:
-  //void Counter()
-  void GetT(t1=0)
-  {
-    t1= CarLight::tg;
-    if(Tobj.CounttgEW()-5=0 ||Tobj.CounttgSN()-5=0)// counterv t can not exceed 1 minutes?
-  {
-   do
-    {
-   t=t+0.01;
-   ds delay(10);  //sleep(0.01)=10ms
-  }while(digitalRead(12)==(1));// has input signals 被遮挡
-    }
-  virtual int outputT()
-    { 
-    digitalWrite (23,1);    //operate timer; digitalwrite(int pin, int value)// if value != 0 == high)
-    reture t; }
-  private: 
-  int t;
-
 class SensorES{
-
-    public:
-  //void Counter()
+public:
+ void Input()
+  {   
+  t0 = CarLight::tg;// ？！ 此处应该有锁！
+  }
   void GetT()
-  {
-    t0= CarLight::tg;// ？！ 此处应该有锁！
-  if(t0 =5)// counterv t can not exceed 1 minutes?  用 wait 等待 
   {
    do {
    t=t+0.01;
    ds delay(10);  //sleep(0.01)=10ms
-  }while(digitalRead(12)==(1) && t0>=0);// has input signals 被遮挡
+  }while(digitalRead(12)==(1)&& t0>0);// has input signals 被遮挡
     }
   virtual int outputT()
     { 
     digitalWrite (23,1);    //operate timer; digitalwrite(int pin, int value)// if value != 0 == high)
     reture t; }
   private: 
-  int t;
-    int t0;
+    int t;
+    static int t0;
 
 class SensorWN: punlic SensorES 
 {
-
   public:
     void GetT()
     {
     t1= CarLight::tg;
-    if(t1=5)// counterv t can not exceed 1 minutes?
-    {
    do{
    t2=t2+0.01;
    ds delay(10);  //sleep(0.01)=10ms
-  }while(digitalRead(18==(1))&& t0>=0);// has input signals
+  }while(digitalRead(18==(1) && t1>0);// has input signals
     }
   virtual int outputT()
     {  
     digitalWrite (23,1);    //operate timer; digitalwrite(int pin, int value)// if value != 0 == high)
-    reture t0; 
-  }
+    reture t2; 
+    }
   private: 
   int t2;
-  int t1;
+  static int t1;
 
 class Button{
  private: int flag;
@@ -227,7 +203,6 @@ class Button{
        }
      
    class WalkLight{
-    private: Button b;
      int tgside;
      int tw;
      public:
@@ -257,19 +232,20 @@ class Button{
         }
   void Setflag()
      {b.flag=0;}
-   }
-
-    void YellowLight(CarLightEW*YL)
+  private: Button b;
+     }
+  
+  void YellowLight(CarLightEW*YL)//virtual黄灯运行，多态
     { 
     YL->CounterY();
     }
  
-     void GRLight(CarLightEW*GRL)
+  void GRLight(CarLightEW*GRL)//virtual红绿灯灯运行，多态
      {
      GRL->CounterGR();
      }
      
-   int Newtg(SensorES & Ts)
+  int Newtg(SensorES & Ts)// sensor 输出的时间进行计算virtual， 多态
    {
   if(Ts.outputT()<1)
   {
