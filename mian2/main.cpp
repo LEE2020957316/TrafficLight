@@ -145,25 +145,41 @@ for(tySN=3,tySN>0,tySN--)
   private: 
   int t;
 
-class SensorWN: punlic SensorES 
-{
- public: 
-  SensorES(int t0=0){
-     t=0;//初始化
-    PinMode(23,OUTPUT);
-     }// pinmode (int pin, int mode), computer control it by 23
+class SensorES{
+
     public:
   //void Counter()
-    void GetT(t1=0)
+  void GetT()
+  {
+    t0= CarLight::tg;// ？！ 此处应该有锁！
+  if(t0 =5)// counterv t can not exceed 1 minutes?  用 wait 等待 
+  {
+   do {
+   t=t+0.01;
+   ds delay(10);  //sleep(0.01)=10ms
+  }while(digitalRead(12)==(1) && t0>=0);// has input signals 被遮挡
+    }
+  virtual int outputT()
+    { 
+    digitalWrite (23,1);    //operate timer; digitalwrite(int pin, int value)// if value != 0 == high)
+    reture t; }
+  private: 
+  int t;
+    int t0;
+
+class SensorWN: punlic SensorES 
+{
+
+  public:
+    void GetT()
     {
     t1= CarLight::tg;
-    if(Tobj.CounttgEW()=t1-5 ||Tobj.CounttgSN()=t1-5)// counterv t can not exceed 1 minutes?
+    if(t1=5)// counterv t can not exceed 1 minutes?
     {
-   do
-    {
-   t0=t0+0.01;
+   do{
+   t2=t2+0.01;
    ds delay(10);  //sleep(0.01)=10ms
-  }while(digitalRead(18==(1)));// has input signals
+  }while(digitalRead(18==(1))&& t0>=0);// has input signals
     }
   virtual int outputT()
     {  
@@ -171,7 +187,8 @@ class SensorWN: punlic SensorES
     reture t0; 
   }
   private: 
-  int t0;
+  int t2;
+  int t1;
 
 class Button{
   public:
