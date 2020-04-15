@@ -108,8 +108,6 @@ digitalWrite(2, 1);
  digitalWrite(26, 1);
   digitalWrite(27, 1); //SN green, else red;
    }
-   
- 
 //redEWini();
       virtual void CounterGR() // 黄灯亮
   {
@@ -121,16 +119,65 @@ for(tySN=3,tySN>0,tySN--)
   private:
      int tgSN;
      int tySN;
-   
+   class SensorES{
+  public: 
+  SensorES(int t=0){
+     t=0;//初始化
+    PinMode(23,OUTPUT);
+     }// pinmode (int pin, int mode), computer control it by 23
+    public:
+  //void Counter()
+  void GetT(t1=0)
+  {
+    t1= CarLight::tg;
+    if(Tobj.CounttgEW()-5=0 ||Tobj.CounttgSN()-5=0)// counterv t can not exceed 1 minutes?
+  {
+   do
+    {
+   t=t+0.01;
+   ds delay(10);  //sleep(0.01)=10ms
+  }while(digitalRead(12)==(1));// has input signals 被遮挡
+    }
+  virtual int outputT()
+    { 
+    digitalWrite (23,1);    //operate timer; digitalwrite(int pin, int value)// if value != 0 == high)
+    reture t; }
+  private: 
+  int t;
+
+class SensorWN: punlic SensorES 
+{
+ public: 
+  SensorES(int t0=0){
+     t=0;//初始化
+    PinMode(23,OUTPUT);
+     }// pinmode (int pin, int mode), computer control it by 23
+    public:
+  //void Counter()
+    void GetT(t1=0)
+    {
+    t1= CarLight::tg;
+    if(Tobj.CounttgEW()=t1-5 ||Tobj.CounttgSN()=t1-5)// counterv t can not exceed 1 minutes?
+    {
+   do
+    {
+   t0=t0+0.01;
+   ds delay(10);  //sleep(0.01)=10ms
+  }while(digitalRead(18==(1)));// has input signals
+    }
+  virtual int outputT()
+    {  
+    digitalWrite (23,1);    //operate timer; digitalwrite(int pin, int value)// if value != 0 == high)
+    reture t0; 
+  }
+  private: 
+  int t0;
+  
     void YellowLight(CarLightEW*YL)
     { YL->CounterY();}
-    YellowLight(&CEW);
-     YellowLight(&CSN);
-     
+ 
      void GRLight(CarLightEW*GRL)
      {GRL->CounterGR();}
-    GRLight(&CEW);
-     GRLight(&CSN); 
      
    int Newtg(SensorES & Ts)
    {
@@ -163,9 +210,10 @@ void Gettg(CarLightEW*pt, SensorES & Obj1, SensorWN & Obj2)// 作比较 输入�
 
 int main()
   {
- 
-  auto int tgSN,tgEW,t1;// t1为整体变量，子函数可以调用
-  int tr,tg,ty; //timing
+    YellowLight(&CEW);
+     YellowLight(&CSN);
+    GRLight(&CEW);
+     GRLight(&CSN); 
 
   if(WiringPiSetup() == -1) //initialize wiringpi store fail or not
  {
