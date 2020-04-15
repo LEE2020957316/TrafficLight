@@ -1,7 +1,7 @@
 class CarLightEW
 {
+ void Gettg(CarLightEW*, SensorES &, SensorWN & );
 public: 
-  void Gettg(CarLightEW*, SensorES &, SensorWN & );
   CarLightEW(int tgEW=0, int tyEW=3)
   { 
     redEWini();
@@ -10,7 +10,7 @@ public:
     this->tgEW= tgEW;
     this->tg= tg;
    }
-  public:
+ public:
   void redEWini()
 {
 PinMode(1,OUTPUT);
@@ -28,35 +28,40 @@ void yellowEWini()
 PinMode(3,OUTPUT);
 digitalWrite(3, LOW);
 }
+  virtual void CounterGR()// EW绿灯亮 
+    {
     greenEWini();
   redSNini();
-  SNsensorini(); //EW green, and SN sensortimer star 
-  for(tgEW=10,tgEW>0,tgEW--)
+  //SNsensorini();
+   for(tgEW=tg;tgEW>0;tgEW--)//EW green, and SN sensortimer star 
 {
    digitalWrite(6, 1);
   digitalWrite(4, 1);
   digitalWrite(5, 1); //EW green, else red
-   sensortimer();
+     tg--;
+   //sensortimer();
 }
-
+ virtual void CounterY() 
+ {
  yellowEWini();
  //redSNini();
-for(tyEW=3,tyEW>0,tyEW--)
+for(tyEW=3;tyEW>0;tyEW--)
  {
  digitalWrite(2, 1);
   //digitalWrite(4, 1);
-  //digitalWrite(5, 1); //EW yellow, else red
+  //digitalWrite(5, 1); //EW yellow, else red(不用）
   }
-  protected: 
+  public: 
   static int tg;
   private:
   int tgEW;
+   int tyEW;
   }
   int CarLightEW::tg=0;//tg initialize.
 
   class CarLightSN: public CarLightEW
  {
-     CarLightSN(int tgEW=0, int tyEW=3, int tySN=3, int tgSN=0 ):CarLightEW(tgEW, tyEW)
+     CarLightSN(int tgEW=0, int tyEW=3, int tySN=3, int tgSN=0 ): CarLightEW(tgEW, tyEW)
      { 
       redSNini();
       greenSNini();
@@ -69,53 +74,41 @@ for(tyEW=3,tyEW>0,tyEW--)
 PinMode(4,OUTPUT);
 digitalWrite(4, LOW);
 }
-   void redSNL()
-{
-yellowSNini();
-PinMode(4,OUTPUT);
-digitalWrite(4, 1);
-}
    void greenSNini()
 {
 PinMode(26,OUTPUT);
 digitalWrite(26, LOW);
-}
-void greenSNL()
-{
-  PinMode(26,OUTPUT);
-digitalWrite(26, 1)
 }
 void yellowSNini()
 {
 PinMode(2,OUTPUT);
 digitalWrite(2, LOW);
 } 
-   void yellowSNL()
-{
-  //yelloeSNini();// already
-    redSNini();
-  greenSNini();// other initialize in direction of SN
-PinMode(2,OUTPUT);
-digitalWrite(2, 1);
-}  
 
-  redEWini();
+  virtual void CounterGR()// SN绿灯亮
+    {
+   redEWini();
   greenSNini();
    EWsesorini(); // SN green, and EW sensortimer star 
-    for(tgSN=10,tgSN>0,tgSN--)
+     
+    for(tgEW=CarLightEW::tg; tgSN>0; tgSN--)
   {
   digitalWrite(1, 1);
  digitalWrite(26, 1);
   digitalWrite(27, 1); //SN green, else red;
+      CarLightEW::tg--;
    }
-//redEWini();
-      virtual void CounterGR() // 黄灯亮
+virtual void CounterY() //黄灯亮
   {
-for(tySN=3,tySN>0,tySN--)
+  yelloeSNini();
+//redEWini();
+for(tySN=3;tySN>0;tySN--)
  {
-   yellowSNL();
+  //digitalWrite(1, 1);
+  digitalWrite(3, 1);
+  //digitalWrite(5, 1); //SN yellow, else red
    sensortimer();
- }  
+ }
   private:
      int tgSN;
      int tySN;
