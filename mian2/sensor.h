@@ -67,7 +67,7 @@ class SensorWN: punlic SensorES
     return 20;//Tc.Gettg()+=10;
   }
  }// 以上为四个sensor线程需要的全部过程：输出时间并计算
-int Gettg(SensorES & Obj1, SensorWN & Obj2)// 作比较 输入对象（同一个类的不同对象），(加锁)
+int Gettg(SensorES & Obj1, SensorWN & Obj2)// 作比较 输入对象（同一个类的不同对象），(加锁)// 已改在CARLIGHT
 {
   int tg=0;//局部变量
   //SensorES tes; SensorWN twn;
