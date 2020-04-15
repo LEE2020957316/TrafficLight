@@ -3,6 +3,7 @@
 #include"SensorWN.h"
 class CarLightEW
 {
+ void Gettg(CarLightEW*, SensorES &, SensorWN & );
 public: 
   CarLightEW(int tgEW=0, int tyEW=3)
   { 
@@ -30,17 +31,12 @@ void yellowEWini()
 PinMode(3,OUTPUT);
 digitalWrite(3, LOW);
 }
- void GNewtg(Logical & logical, SensorES & Obj1, SensorWN & Obj2)//时间比较后所得
-    {
-    tg=logical.Gettg(Obj1,Obj2);
-    }
-  
   virtual void CounterGR()// EW绿灯亮 
     {
     greenEWini();
   redSNini();
   //SNsensorini();
-   for(tgEW=tg,tgEW>0,tgEW--)//EW green, and SN sensortimer star 
+   for(tgEW=tg;tgEW>0;tgEW--)//EW green, and SN sensortimer star 
 {
    digitalWrite(6, 1);
   digitalWrite(4, 1);
@@ -52,7 +48,7 @@ digitalWrite(3, LOW);
  {
  yellowEWini();
  //redSNini();
-for(tyEW=3,tyEW>0,tyEW--)
+for(tyEW=3;tyEW>0;tyEW--)
  {
  digitalWrite(2, 1);
   //digitalWrite(4, 1);
@@ -91,29 +87,25 @@ void yellowSNini()
 PinMode(2,OUTPUT);
 digitalWrite(2, LOW);
 } 
- void GNewtg(Logical & logical, SensorES & Obj1, SensorWN & Obj2)//时间比较后所得
-    {
-   CarLightEW::tg=logical.Gettg(Obj1,Obj2);
-    }
+
   virtual void CounterGR()// SN绿灯亮
     {
    redEWini();
   greenSNini();
    EWsesorini(); // SN green, and EW sensortimer star 
-     tgEW= CarLightEW::tg;
-    for(tgSN=10,tgSN>0,tgSN--)
+     
+    for(tgEW=CarLightEW::tg; tgSN>0; tgSN--)
   {
   digitalWrite(1, 1);
  digitalWrite(26, 1);
   digitalWrite(27, 1); //SN green, else red;
       CarLightEW::tg--;
    }
-
-  virtual void CounterY() //黄灯亮
+virtual void CounterY() //黄灯亮
   {
   yelloeSNini();
 //redEWini();
-for(tySN=3,tySN>0,tySN--)
+for(tySN=3;tySN>0;tySN--)
  {
   //digitalWrite(1, 1);
   digitalWrite(3, 1);
@@ -124,7 +116,7 @@ for(tySN=3,tySN>0,tySN--)
      int tgSN;
      int tySN;
     
-     void YellowLight(CarLightEW*YL)
+    void YellowLight(CarLightEW*YL)
     { YL->CounterY();}
     YellowLight(&CEW);
      YellowLight(&CSN);
@@ -181,4 +173,11 @@ void yellowSNL()
   greenSNini();// other initialize in direction of SN
 PinMode(2,OUTPUT);
 digitalWrite(2, 1);
-}  
+}   void GNewtg(Logical & logical, SensorES & Obj1, SensorWN & Obj2)//时间比较后所得
+    {
+    tg=logical.Gettg(Obj1,Obj2);
+    }
+   void GNewtg(Logical & logical, SensorES & Obj1, SensorWN & Obj2)//时间比较后所得
+    {
+   CarLightEW::tg=logical.Gettg(Obj1,Obj2);
+    }
