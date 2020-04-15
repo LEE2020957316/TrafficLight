@@ -234,12 +234,14 @@ class Button{
   digitalWrite(6, 1); //side green, else red
     }
      }
-     else(tw=0)
+     void WNLighting(){
+    if(tw=0)
       {
    digitalWrite(1, LOW);// no signal was checked, no light respon
        digitalWrite(4, LOW);
        digitalWrite(6, LOW);
         }
+     }
   void Setflag()
      {b.flag=0;}
   private: Button b;
@@ -286,6 +288,7 @@ void Gettg(CarLightEW*pt, SensorES & Obj1, SensorWN & Obj2)// 作比较, 然后�
 
 int main()
   {
+ int tag=0;
    CarLightEW CEW;
   CarLightSN CSN;
   SensorES SE, SS; 
@@ -297,10 +300,21 @@ int main()
   printf("you set up wiringpi failed"); //failed
   return 1;
    
-    YellowLight(&CEW);
-     YellowLight(&CSN);
+   while true//一条线 按照C语言改写成C++；
+   {
     GRLight(&CEW);
+    YellowLight(&CEW);
+     Gettg(&CEW, SS, SN);
      GRLight(&CSN); 
- }
-  
+     YellowLight(&CSN);
+     Gettg(&CSN, SE, SW);
+      if(WL.CheckB()=1)
+      { WL. WLighting()
+      WL.Setflag();}
+    else
+    {WL. WNLighting();
+    WL.Setflag();}
+   }
+  return 0；
+   }
  
