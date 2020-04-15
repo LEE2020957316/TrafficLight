@@ -119,6 +119,7 @@ for(tySN=3,tySN>0,tySN--)
   private:
      int tgSN;
      int tySN;
+     
    class SensorES{
   public: 
   SensorES(int t=0){
@@ -263,7 +264,7 @@ digitalWrite(1, LOW);// no signal was checked, no light respon
   }
  }// 以上为四个sensor线程需要的全部过程：输出时间并计算
  
-void Gettg(CarLightEW*pt, SensorES & Obj1, SensorWN & Obj2)// 作比较 输入对象（同一个类的不同对象），(加锁)
+void Gettg(CarLightEW*pt, SensorES & Obj1, SensorWN & Obj2)// 作比较, 然后给重新给静态函数tg赋值 输入对象（同一个类的不同对象）
 {
   int pt->tg=0;//局部变量
   //SensorES tes; SensorWN twn;
@@ -278,6 +279,12 @@ void Gettg(CarLightEW*pt, SensorES & Obj1, SensorWN & Obj2)// 作比较 输入�
 
 int main()
   {
+   CarLightEW CEW;
+  CarLightSN CSN;
+  SensorES SE, SS; 
+  SensorWN SW, SN;
+  WalkLight WL;
+  
     YellowLight(&CEW);
      YellowLight(&CSN);
     GRLight(&CEW);
