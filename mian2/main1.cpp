@@ -243,7 +243,7 @@ class Button{
     
   class LogicalMutex{
    public: 
-   LogicalMutex(){;}//初始化所有类按照定义顺序
+   LogicalMutex(){ car.lock(); m1.lock(); m2.lock(); m3.lock();m4.lock();}//初始化所有类按照定义顺序
    public:
   void YellowLight(CarLightEW*YL)//virtual黄灯运行，多态
     { 
@@ -289,8 +289,8 @@ void Gettg(CarLightEW*pt, SensorES & Obj1, SensorWN & Obj2)// 作比较, 然后�
     sensor.lock();
     SW.outputT();
     sensor.unlock();
-    Newtg(SensorES & Ts);
-    m1.unlock.//在调用这个类的构造函数时，锁定（锁的成对出现理论）。
+    Newtg(SW);
+    m1.unlock(); //在调用这个类的构造函数时，锁定（锁的成对出现理论）。
    }
     void SensorE()
      {
@@ -298,62 +298,79 @@ void Gettg(CarLightEW*pt, SensorES & Obj1, SensorWN & Obj2)// 作比较, 然后�
      sensor.lock();//共享一个23号口输出；
      SE.outputT();
      sensor.unlock();
-     Newtg(SensorES & Ts);
+     Newtg(SE);
+     m2.unlock(); 
     void SensorS()
     {   
        SS.GetT();
       sensor1.lock();
       SS.outputT();
       sensor1.unlock();
-      Newtg(SensorES & Ts);
+      Newtg(SS);
+      m3.unlock();
+     
     void SensorN()
     { 
      SS.GetT();
       sensor1.lock();
        SN.outputT();
      sensor1.unlock();
-      
-    void CL0()
+      Newtg(SN);
+     m4.unlock();
+    
+     void CL()
     {
      GRLight(&CEW);
-      unique_lock<mutex>locker(b_mutex);
-    YellowLight(&CEW);  
+    YellowLight(&CEW);
+     if(WL.CheckB()=1)
+      {    
+       button.unlock();
+     }
+     else{  
+      WL.WNLighting();
+     delay(500);
     car.unlock(); 
-     button.unlock();//只有一个获得了锁。
-     
+       }//只有一个获得了锁。
+      car.lock();
+      m3.lock();
+      m4.lock();
      Gettg(&CEW, SS, SN);
+       m3.unlock();
+      m4.unlock();
      GRLight(&CSN); 
-     YellowLight(&CSN);
-     button.unlock();
+     YellowLight(&CSN);//少一个carlock，和button lock，构造。
+      if(WL.CheckB()=1)
+      {    
+       button.unlock();
+     }
+     else{  
+      WL.WNLighting();
+     delay(500);
+    car.unlock(); 
+       }//只有一个获得了锁。 
+      car.lock();
       m1.lock();
+      m2.lock();
     Gettg(&CSN, SE, SW);
-     
+     m1.unlock();
+      m2.unlock();
+      
     void WLAB()
     {
      WL.CheckB();
      button.lock();
-     if(WL.CheckB()=1)
-      {   
        WL. WLighting();
       WL.Setflag();
        button.lock();
         car.unlock();  
-      }
-    else
-    {WL. WNLighting();
-     delay(500);
-    WL.Setflag();
-      button.lock();
-        car.unlock(); }	//	   
-      }
+      }   
    private:
   CarLightEW CEW;
   CarLightSN CSN;
   SensorES SE, SS; 
   SensorWN SW, SN;
   WalkLight WL;
-   std::mutex m1, m2, m3, m4, sensor，car;
-   std::condition_variable cond;  
+   std::mutex m1, m2, m3, m4, sensor,sensor1,car;
 
 int main()
 {
@@ -362,11 +379,11 @@ int main()
   printf("you set up wiringpi failed"); //failed
   return 1;
   LogicalMutex LM;
-  std::thread t1(&LogicalMutex::SensorW,std::ref(LM));// S OR E sensor read// IO bound, read at same time and only for join once?
-   std::thread t2(&LogicalMutex::SensorE,std::ref(LM);// N OR W sensor read
-   std::thread t3(&LogicalMutex::SensorS,std::ref(LM);// S OR E sensor read// IO bound, read at same time and only for join once?
+  std::thread t1(&LogicalMutex::SensorW,std::ref(LM));
+   std::thread t2(&LogicalMutex::SensorE,std::ref(LM);
+   std::thread t3(&LogicalMutex::SensorS,std::ref(LM);
    std::thread t4(&LogicalMutex::SensorN,std::ref(LM);//第二个参数，保证线程里用的同一个对象
-   std::thread t5((&LogicalMutex::WLAB,std::ref(LM);// S OR E sensor read// IO bound, read at same time and only for join once?
+   std::thread t5((&LogicalMutex::WLAB,std::ref(LM);
    std::thread t6((&LogicalMutex::CL,std::ref(LM));
        t1.join();
         t2.join();
@@ -374,6 +391,10 @@ int main()
          t4.join();
           t5.join();
           t6.join();
-                  cout<<"this is a trafficlight system"<<endl;
+       cout<<"this is a trafficlight system"<<endl;
      return 0；
    }
+/*while true  {
+  unique_lock<mutex>locker(b_mutex);
+ button_cond.wait (unique_lock& locker, [this]{if (ty == 0);})
+   return true; retuen false;
