@@ -120,7 +120,16 @@ for(tySN=3,tySN>0,tySN--)
   private:
      int tgSN;
      int tySN;
-    
+   
+    void YellowLight(CarLightEW*YL)
+    { YL->CounterY();}
+    YellowLight(&CEW);
+     YellowLight(&CSN);
+     
+     void GRLight(CarLightEW*GRL)
+     {GRL->CounterGR();}
+    GRLight(&CEW);
+     GRLight(&CSN); 
   /*void SNsensorini()
  {
 PinMode(5,INPUT);
