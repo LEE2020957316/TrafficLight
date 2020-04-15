@@ -219,7 +219,7 @@ class Button{
         if(digitalRead(0) == 0)// 检测到低电平
         { return 1;}
    else 
-       { return 0;}
+       { return -1;}
        }
      
    class WalkLight{
@@ -227,11 +227,13 @@ class Button{
      int tgside;
      int tw;
      public:
-     WalkLight(int tgside=10; int tw=0)
+   WalkLight(int tgside=10; int tw=0)
      { 
        this->tgside= tgside;
       this->tw=tw;
      }
+   int CheckB()
+     {b.CheckB();}
    void WLighting()
    { 
      tw=b.CheckB();//digitalWrite(18, GPIO.HIGH); // all side greenlight lighting
