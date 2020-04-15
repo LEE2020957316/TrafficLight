@@ -245,7 +245,10 @@ class Button{
      {b.flag=0;}
   private: Button b;
      }
-  
+    
+  class LogicalMutex{
+   LogicalMutex(){;}//初始化所有类按照定义顺序
+   public:
   void YellowLight(CarLightEW*YL)//virtual黄灯运行，多态
     { 
     YL->CounterY();
@@ -283,27 +286,7 @@ void Gettg(CarLightEW*pt, SensorES & Obj1, SensorWN & Obj2)// 作比较, 然后�
   else {pt->tg=Newtg(Obj2);
     }
  }
-     
-std::condition_variable cond;
-std::mutex mu;
-
-int main()
-  {
- int tag=0;
-   CarLightEW CEW;
-  CarLightSN CSN;
-  SensorES SE, SS; 
-  SensorWN SW, SN;
-  WalkLight WL;
-
-  if(WiringPiSetup() == -1) //initialize wiringpi store fail or not
- {
-  printf("you set up wiringpi failed"); //failed
-  return 1;
-   
-   while true//一条线 按照C语言改写成C++；
-   {
-    GRLight(&CEW);
+     GRLight(&CEW);
     YellowLight(&CEW);
      Gettg(&CEW, SS, SN);
      GRLight(&CSN); 
@@ -316,5 +299,22 @@ int main()
     {WL. WNLighting();
     WL.Setflag();}
    }
+   private:
+  CarLightEW CEW;
+  CarLightSN CSN;
+  SensorES SE, SS; 
+  SensorWN SW, SN;
+  WalkLight WL;
+   std::mutex mu;
+   std::condition_variable cond;  
+
+int main()
+  {
+  if(WiringPiSetup() == -1) //initialize wiringpi store fail or not
+ {
+  printf("you set up wiringpi failed"); //failed
+  return 1;
+   while (1)//一条线 按照C语言改写成C++；
+   { }
   return 0；
    }
