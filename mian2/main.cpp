@@ -21,7 +21,7 @@ using namespace std;
 
 class CarLightEW // 车行道红绿灯
 {
- void Gettg(CarLightEW*, SensorES &, SensorWN & );
+ friend void Gettg(CarLightEW*, SensorES &, SensorWN & );// 他的子函数不再需要有友元，因为tg为静态， 改变这个属性， 所有一起变。
 public: 
   CarLightEW(int tgEW=0, int tyEW=3)
   { 
@@ -140,7 +140,6 @@ virtual void CounterY() //黄灯亮
      int tySN;
      
 class SensorES{
-public:
    public: 
   SensorES(){
      t0=0;
