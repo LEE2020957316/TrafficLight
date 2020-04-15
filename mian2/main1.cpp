@@ -71,10 +71,10 @@ digitalWrite(3, LOW);
  //redSNini();
 for(tyEW=3;tyEW>0;tyEW--)
  {
- digitalWrite(2, 1);
-  //digitalWrite(4, 1);
-  //digitalWrite(5, 1); //EW yellow, else red(不用）
-  }
+ digitalWrite(2, 1);//digitalWrite(4, 1); //digitalWrite(5, 1); //EW yellow, else red(不用）
+   /*unique_lock<mutex>locker(b_mutex);
+   button_cond.notify_all (); //线程等待的实现
+   */}
   public: 
   static int tg;
   private:
@@ -130,10 +130,7 @@ virtual void CounterY() //黄灯亮
 //redEWini();
  for(tySN=3;tySN>0;tySN--)
    {
-  //digitalWrite(1, 1);
-  digitalWrite(3, 1);
-  //digitalWrite(5, 1); //SN yellow, else red
-   sensortimer();
+   digitalWrite(3, 1);//digitalWrite(1, 1);//digitalWrite(5, 1); //SN yellow, else red
    }
   private:
      int tgSN;
@@ -286,18 +283,57 @@ void Gettg(CarLightEW*pt, SensorES & Obj1, SensorWN & Obj2)// 作比较, 然后�
   else {pt->tg=Newtg(Obj2);
     }
  }
+   void SensorW()
+   {
+    sensor.lock();
+    SW.outputT();
+    void SensorE()
+     {
+      sensor.lock();
+     SE.outputT();
+    void SensorS()
+    { 
+      sensor.lock();
+      SS.outputT();
+    void SensorN()
+    { 
+       sensor.lock();
+       SN.outputT();
+     
+    void CL0()
+    {
      GRLight(&CEW);
+      unique_lock<mutex>locker(b_mutex);
     YellowLight(&CEW);
+       button_cond.notify_all (); //线程等待的实现
+        }
+   void CL1()
+     {
      Gettg(&CEW, SS, SN);
      GRLight(&CSN); 
      YellowLight(&CSN);
      Gettg(&CSN, SE, SW);
-      if(WL.CheckB()=1)
-      { WL. WLighting()
-      WL.Setflag();}
+    void WLAB()
+    {
+     WL.CheckB();
+     while true  {
+      unique_lock<mutex>locker(b_mutex);
+ button_cond.wait (unique_lock& locker, [this]{(tyEW==0);})
+   return true; retuen false;
+          car.lock();
+        sensor.lock();
+     if(WL.CheckB()=1)
+      {
+       WL. WLighting();
+      WL.Setflag();
+       sensor.unlock();
+        car.unlock();  
+      }
     else
     {WL. WNLighting();
-    WL.Setflag();}
+    WL.Setflag();
+    sensor.unlock();
+        car.unlock(); }	//delay(500);	   
    }
    private:
   CarLightEW CEW;
@@ -309,7 +345,8 @@ void Gettg(CarLightEW*pt, SensorES & Obj1, SensorWN & Obj2)// 作比较, 然后�
    std::condition_variable cond;  
 
 int main()
-  {
+{
+  LogicalMutex LM;
   if(WiringPiSetup() == -1) //initialize wiringpi store fail or not
  {
   printf("you set up wiringpi failed"); //failed
