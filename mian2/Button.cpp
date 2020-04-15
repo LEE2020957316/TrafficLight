@@ -1,3 +1,5 @@
+std::condition_variable cond;
+std::mutex mu;
 
    void Yellow()
    {
@@ -48,7 +50,7 @@ while true  {
        digitalWrite(6,LOW);
 	delay(500);	  // 
         sensor.unlock();
-		  car.unlock();    
+        car.unlock();    
        }
    }
      }
