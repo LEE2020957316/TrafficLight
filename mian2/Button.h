@@ -21,7 +21,7 @@ class Button{
      int tgside;
      int tw;
      public:
-     WalkLight(int tgside=10; tw=0)
+     WalkLight(int tgside=10; int tw=0)
      { 
        this->tgside= tgside;
       this->tw=tw;
