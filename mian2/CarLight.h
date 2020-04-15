@@ -1,6 +1,7 @@
 class CarLightEW
 {
 public: 
+  void Gettg(CarLightEW*, SensorES &, SensorWN & );
   CarLightEW(int tgEW=0, int tyEW=3)
   { 
     redEWini();
@@ -109,8 +110,7 @@ digitalWrite(2, 1);
    }
  
 //redEWini();
-    
-  virtual void CounterGR() // 黄灯亮
+      virtual void CounterGR() // 黄灯亮
   {
 for(tySN=3,tySN>0,tySN--)
  {
@@ -130,6 +130,34 @@ for(tySN=3,tySN>0,tySN--)
      {GRL->CounterGR();}
     GRLight(&CEW);
      GRLight(&CSN); 
+     
+   int Newtg(SensorES & Ts)
+   {
+  if(Ts.outputT()<1)
+  {
+   return 10;//Tc.Gettg()= Tc.Gettg();// 3 chooses
+  }
+     else if(Ts.outputT()>=1 && Ts.outputT()<=2)
+    {
+      return 15//Tc.Gettg()+=5; 
+    }
+       else if(Ts.outputT()>=2)
+  {
+    return 20;//Tc.Gettg()+=10;
+  }
+ }// 以上为四个sensor线程需要的全部过程：输出时间并计算
+ 
+void Gettg(CarLightEW*pt, SensorES & Obj1, SensorWN & Obj2)// 作比较 输入对象（同一个类的不同对象），(加锁)
+{
+  int pt->tg=0;//局部变量
+  //SensorES tes; SensorWN twn;
+  if(Newtg(Obj1)>=Newtg(Obj2))
+  { 
+    pt->tg=Newtg(Obj1);
+  }
+  else {pt->tg=Newtg(Obj2);
+    }
+ }
   /*void SNsensorini()
  {
 PinMode(5,INPUT);
