@@ -13,7 +13,7 @@ class Button{
         if(digitalRead(0) == 0)// 检测到低电平
         { return 1;}
    else 
-       { return 0;}
+       { return -1;}
        }
      
    class WalkLight{
