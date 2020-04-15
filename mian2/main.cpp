@@ -54,7 +54,7 @@ digitalWrite(3, LOW);
     {
     greenEWini();
   redSNini();
-  //SNsensorini();
+  //SNsensorini();变量调用构造函数初始化
    for(tgEW=tg;tgEW>0;tgEW--)//EW green, and SN sensortimer star 
 {
    digitalWrite(6, 1);
@@ -62,9 +62,8 @@ digitalWrite(3, LOW);
   digitalWrite(5, 1); //EW green, else red
      tg--;
     if(CarLightEW::tg<=5 && tg>0)// counterv t can not exceed 1 minutes?
-      { obj.InputT();}// 五秒倒计时开始传+
-    //sensortimer();
-   }
+      { obj.InputT();}// 五秒倒计时开始传+ //sensortimer();
+     }
    
  virtual void CounterY() 
  {
@@ -142,6 +141,12 @@ virtual void CounterY() //黄灯亮
      
 class SensorES{
 public:
+   public: 
+  SensorES(){
+     t0=0;
+      t=0;//初始化
+    PinMode(23,OUTPUT);
+     }// pinmode (int pin, int mode), computer control it by 23
  void Input()
   {   
   t0 = CarLight::tg;// ？！ 此处应该有锁！
@@ -163,6 +168,11 @@ public:
 
 class SensorWN: punlic SensorES 
 {
+  SensorES(){
+     t1=0;
+      t2=0;//初始化
+    PinMode(23,OUTPUT);
+     }// pinmode (int pin, int mode), computer control it by 23
   public:
     void GetT()
     {
