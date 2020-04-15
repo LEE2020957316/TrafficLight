@@ -23,7 +23,7 @@ class CarLightEW // 车行道红绿灯
 {
  friend void Gettg(CarLightEW*, SensorES &, SensorWN & );// 他的子函数不再需要有友元，因为tg为静态， 改变这个属性， 所有一起变。
 public: 
-  CarLightEW(int tgEW=0, int tyEW=3)
+  CarLightEW(int tgEW=10, int tyEW=3)
   { 
     redEWini();
     greenEWini();
@@ -72,9 +72,7 @@ digitalWrite(3, LOW);
 for(tyEW=3;tyEW>0;tyEW--)
  {
  digitalWrite(2, 1);//digitalWrite(4, 1); //digitalWrite(5, 1); //EW yellow, else red(不用）
-   /*unique_lock<mutex>locker(b_mutex);
-   button_cond.notify_all (); //线程等待的实现
-   */}
+   }
   public: 
   static int tg;
   private:
@@ -85,7 +83,7 @@ for(tyEW=3;tyEW>0;tyEW--)
 
   class CarLightSN: public CarLightEW
  {
-     CarLightSN(int tgEW=0, int tyEW=3, int tySN=3, int tgSN=0 ): CarLightEW(tgEW, tyEW)
+     CarLightSN(int tgEW=10, int tyEW=3, int tySN=3, int tgSN=10 ): CarLightEW(tgEW, tyEW)
      { 
       redSNini();
       greenSNini();
@@ -131,7 +129,7 @@ virtual void CounterY() //黄灯亮
  for(tySN=3;tySN>0;tySN--)
    {
    digitalWrite(3, 1);//digitalWrite(1, 1);//digitalWrite(5, 1); //SN yellow, else red
-   }
+ }
   private:
      int tgSN;
      int tySN;
@@ -170,7 +168,7 @@ class SensorWN: punlic SensorES
     PinMode(23,OUTPUT);
      }// pinmode (int pin, int mode), computer control it by 23
   public:
-    void GetT()
+   void GetT()
     {
     t1= CarLight::tg;
    do{
@@ -284,75 +282,98 @@ void Gettg(CarLightEW*pt, SensorES & Obj1, SensorWN & Obj2)// 作比较, 然后�
   else {pt->tg=Newtg(Obj2);
     }
  }
+  public://while (1){}
    void SensorW()
    {
+   SW.GetT();
     sensor.lock();
     SW.outputT();
+    sensor.unlock();
+    Newtg(SensorES & Ts);
+    m1.unlock.//在调用这个类的构造函数时，锁定（锁的成对出现理论）。
+   }
     void SensorE()
      {
-      sensor.lock();
+     SE.GetT();// 不用再加锁，tg 来控制。
+     sensor.lock();//共享一个23号口输出；
      SE.outputT();
+     sensor.unlock();
+     Newtg(SensorES & Ts);
     void SensorS()
-    { 
-      sensor.lock();
+    {   
+       SS.GetT();
+      sensor1.lock();
       SS.outputT();
+      sensor1.unlock();
+      Newtg(SensorES & Ts);
     void SensorN()
     { 
-       sensor.lock();
+     SS.GetT();
+      sensor1.lock();
        SN.outputT();
-     
+     sensor1.unlock();
+      
     void CL0()
     {
      GRLight(&CEW);
       unique_lock<mutex>locker(b_mutex);
-    YellowLight(&CEW);
-       button_cond.notify_all (); //线程等待的实现
-        }
-   void CL1()
-     {
+    YellowLight(&CEW);  
+    car.unlock(); 
+     button.unlock();//只有一个获得了锁。
+     
      Gettg(&CEW, SS, SN);
      GRLight(&CSN); 
      YellowLight(&CSN);
-     Gettg(&CSN, SE, SW);
+     button.unlock();
+      m1.lock();
+    Gettg(&CSN, SE, SW);
+     
     void WLAB()
     {
      WL.CheckB();
-     while true  {
-      unique_lock<mutex>locker(b_mutex);
- button_cond.wait (unique_lock& locker, [this]{(tyEW==0);})
-   return true; retuen false;
-          car.lock();
-        sensor.lock();
+     button.lock();
      if(WL.CheckB()=1)
-      {
+      {   
        WL. WLighting();
       WL.Setflag();
-       sensor.unlock();
+       button.lock();
         car.unlock();  
       }
     else
     {WL. WNLighting();
+     delay(500);
     WL.Setflag();
-    sensor.unlock();
-        car.unlock(); }	//delay(500);	   
-   }
+      button.lock();
+        car.unlock(); }	//	   
+      }
    private:
   CarLightEW CEW;
   CarLightSN CSN;
   SensorES SE, SS; 
   SensorWN SW, SN;
   WalkLight WL;
-   std::mutex mu;
+   std::mutex m1, m2, m3, m4, sensor，car;
    std::condition_variable cond;  
 
 int main()
 {
-  LogicalMutex LM;
-  if(WiringPiSetup() == -1) //initialize wiringpi store fail or not
+   if(WiringPiSetup() == -1) //initialize wiringpi store fail or not
  {
   printf("you set up wiringpi failed"); //failed
   return 1;
-   while (1)//一条线 按照C语言改写成C++；
-   { }
-  return 0；
+  LogicalMutex LM;
+  std::thread t1(&LogicalMutex::SensorW,std::ref(LM));// S OR E sensor read// IO bound, read at same time and only for join once?
+   std::thread t2(&LogicalMutex::SensorE,std::ref(LM);// N OR W sensor read
+   std::thread t3(&LogicalMutex::SensorS,std::ref(LM);// S OR E sensor read// IO bound, read at same time and only for join once?
+   std::thread t4(&LogicalMutex::SensorN,std::ref(LM);//第二个参数，保证线程里用的同一个对象
+   std::thread t5((&LogicalMutex::WLAB,std::ref(LM);// S OR E sensor read// IO bound, read at same time and only for join once?
+   std::thread t6((&LogicalMutex::CL,std::ref(LM));
+       t1.join();
+        t2.join();
+       t3.join();
+         t4.join();
+          t5.join();
+          t6.join();
+                  cout<<"this is a trafficlight system"<<endl;
+     return 0；
    }
