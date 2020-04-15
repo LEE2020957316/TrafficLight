@@ -206,9 +206,11 @@ class SensorWN: punlic SensorES
   int t1;
 
 class Button{
+ private: int flag;
   public:
   friend class WalkLight;
   Button(){//构造函数
+   int flag=0;
     pinMode(0,INPUT); //引脚0为BUTTON输入模式
   pullUpDnControl(0,PUD_UP); //设置0号引脚上拉,(设置成上拉输入，引脚上就加了一个上拉电阻，那么引脚就默认是高电平，当再去读取这个引脚的时候，
    }
@@ -218,9 +220,10 @@ class Button{
      {
         delay(20); // 延时销抖, for machine button 
         if(digitalRead(0) == 0)// 检测到低电平
-        { return 1;}
+        { flag= 1;}
    else 
-       { return -1;}
+       { flag=-1;}
+     return flag;
        }
      
    class WalkLight{
@@ -237,7 +240,7 @@ class Button{
      {b.CheckB();}
    void WLighting()
    { 
-     tw=b.CheckB();//digitalWrite(18, GPIO.HIGH); // all side greenlight lighting
+     tw=CheckB();//digitalWrite(18, GPIO.HIGH); // all side greenlight lighting
      if(tw=1){
     for(tgside=10;tgside>0;tgside--)
   {
@@ -248,10 +251,12 @@ class Button{
      }
      else(tw=0)
       {
-digitalWrite(1, LOW);// no signal was checked, no light respon
+   digitalWrite(1, LOW);// no signal was checked, no light respon
        digitalWrite(4, LOW);
        digitalWrite(6, LOW);
         }
+  void Setflag()
+     {b.flag=0;}
    }
 
     void YellowLight(CarLightEW*YL)
@@ -300,16 +305,16 @@ int main()
   SensorES SE, SS; 
   SensorWN SW, SN;
   WalkLight WL;
-  
-    YellowLight(&CEW);
-     YellowLight(&CSN);
-    GRLight(&CEW);
-     GRLight(&CSN); 
 
   if(WiringPiSetup() == -1) //initialize wiringpi store fail or not
  {
   printf("you set up wiringpi failed"); //failed
   return 1;
+   
+    YellowLight(&CEW);
+     YellowLight(&CSN);
+    GRLight(&CEW);
+     GRLight(&CSN); 
  }
   
  
