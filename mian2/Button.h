@@ -25,10 +25,12 @@ class Button{
      { 
        this->tgside= tgside;
       this->tw=tw;
-     }
-   void WLighting()
+     } 
+    int CheckB()
+     {b.CheckB();}
+  void WLighting()
    { 
-     tw=b.CheckB();//digitalWrite(18, GPIO.HIGH); // all side greenlight lighting
+     tw=CheckB();//digitalWrite(18, GPIO.HIGH); // all side greenlight lighting
      if(tw=1){
     for(tgside=10;tgside>0;tgside--)
   {
