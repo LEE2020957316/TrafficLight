@@ -244,6 +244,7 @@ class Button{
      }
     
   class LogicalMutex{
+   public: 
    LogicalMutex(){;}//初始化所有类按照定义顺序
    public:
   void YellowLight(CarLightEW*YL)//virtual黄灯运行，多态
