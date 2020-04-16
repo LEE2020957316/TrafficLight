@@ -15,11 +15,12 @@ class CppThread {
 
 public:
 	void start() {
-		uthread = new std::thread(CppThread::exec, this); //this：lambda函数， new：分配给指针指向类的地址
+		uthread = new std::thread(CppThread::exec, this); //this指针，new就为分配内存给this指针 
+		//自己的理解：这个类CppThread的exec作为一个线程，给这个线程分配一个指针uthread.
 	}
 
 	void join() {
-		uthread->join(); ////在类CppThread 中调用join函数 
+		uthread->join(); //在类CppThread 中调用join函数 
 		delete uthread;
 		uthread = NULL;
 	}
@@ -27,7 +28,7 @@ public:
 	CppThread() {};
 	
 	virtual ~CppThread() { // 析构函数，在类？执行释放指针
-		if (uthread) {
+		if (uthread) { //未被消除， 还存在（指针对象）
 			delete uthread;
 		}
 	}
@@ -37,11 +38,12 @@ protected:
 	virtual void run() = 0;	
 
 private:
-	std::thread* uthread = NULL;
+	std::thread* uthread = NULL;//2.给thread分配指针。！！！//（一般在main中）。
 
 	// static function which points back to the class
-	static void exec(CppThread* cppThread) {
-		cppThread->run(); //在类CppThread 中调用 run 函数
+	static void exec(CppThread* cppThread) //小写c为指针名字，静态函数，父类指向子类的指针
+	{
+		cppThread->run(); //在类CppThread 中调用 run 函数，对2.
 	}
 };
 
@@ -59,19 +61,19 @@ private:
 class DemoThread : public CppThread {  //？？类函数， 调用另一个类函数，（猜测），就想void函数调用类void diaoyong函数名(A类， &abc对象名）
 
 public:
-	DemoThread(int _offset) { // 类的整型函数对象
+	DemoThread(int _offset) { // 类的构造函数对象
 		offset = _offset; // like (A(int a))
-	}// the same with?: DemoThread(int _offset): offset(_offset);
+	}// the same with: DemoThread(int _offset): offset(_offset);
 
 private:
-	void run();
+	void run();//多态
 
 private:
 	int offset;
 };
 
 #endif
-void DemoThread::run() { // 类DT的构造函数.
+void DemoThread::run() { // 类DT的构造函数，多态
 	for(int i=0;i<10;i++) {
 		printf("%d\n",i+offset);
 		std::this_thread::sleep_for(std::chrono::milliseconds(10));
@@ -79,8 +81,8 @@ void DemoThread::run() { // 类DT的构造函数.
 }
 
 
-int main( int argc, const char* argv[] ) {
-	DemoThread demoThread1(0);//1. offset= 0； 2.且创建了类对象。
+int main( int argc//实参, const char* argv[]//指针 ) { 
+	DemoThread demoThread1(0);//1. 构造函数初始化：offset= 0； 2.且创建了三条线程，同一个（函数）入口。
 	DemoThread demoThread2(10); //offset= 10
 	DemoThread demoThread3(20);
 	demoThread1.start();// the same with join.
