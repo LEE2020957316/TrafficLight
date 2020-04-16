@@ -1,5 +1,6 @@
 std::condition_variable cond;
 std::mutex mu;
+  std::this_thread::sleep_for(std::chrono::milliseconds(10));// make thread sleep for 3 ms(can both add in void /main after thread.
 
    void Yellow()
    {
