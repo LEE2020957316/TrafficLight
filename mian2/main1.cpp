@@ -50,7 +50,7 @@ PinMode(3,OUTPUT);
 digitalWrite(3, LOW);
 }
  
-  virtual void CounterGR()// EW绿灯亮 
+  virtual int CounterGR()// EW绿灯亮 
     {
     greenEWini();
   redSNini();
@@ -61,8 +61,9 @@ digitalWrite(3, LOW);
   digitalWrite(4, 1);
   digitalWrite(5, 1); //EW green, else red
      tg--;
-    if(CarLightEW::tg<=5 && tg>0)// counterv t can not exceed 1 minutes?
-      { obj.InputT();}// 五秒倒计时开始传+ //sensortimer();
+    return tg;
+    //if(CarLightEW::tg<=5 && tg>0)// counterv t can not exceed 1 minutes?
+      //{ obj.InputT();}// 五秒倒计时开始传+ //sensortimer();
      }
    
  virtual void CounterY() 
@@ -107,7 +108,7 @@ PinMode(2,OUTPUT);
 digitalWrite(2, LOW);
 } 
 
-  virtual void CounterGR(SensorES& obj)// SN绿灯亮
+  virtual int CounterGR()// SN绿灯亮
     {
    redEWini();
   greenSNini();
@@ -118,8 +119,9 @@ digitalWrite(2, LOW);
     digitalWrite(26, 1);
     digitalWrite(27, 1); //SN green, else red;
       CarLightEW::tg--;
-  if(CarLightEW::tg<=5 && tg>0)// counterv t can not exceed 1 minutes?
-      { obj.InputT();}// 五秒倒计时开始传
+   return CarLightEW::tg--;
+  //if(CarLightEW::tg<=5 && tg>0)// counterv t can not exceed 1 minutes?
+      //{ obj.InputT();}// 五秒倒计时开始传
     }
    
 virtual void CounterY() //黄灯亮
@@ -149,7 +151,7 @@ class SensorES{
   {
    do {
    t=t+0.01;
-   ds delay(10);  //sleep(0.01)=10ms
+   delay(10);  //sleep(0.01)=10ms
   }while(digitalRead(12)==(1)&& t0>0);// has input signals 被遮挡
     }
   virtual int outputT()
@@ -243,7 +245,8 @@ class Button{
     
   class LogicalMutex{
    public: 
-   LogicalMutex(){ car.lock(); m1.lock(); m2.lock(); m3.lock();m4.lock();}//初始化所有类按照定义顺序
+   LogicalMutex(){car.lock();car1.lock();button.lock();button1.lock();}
+   //初始化所有类按照定义顺序
    public:
   void YellowLight(CarLightEW*YL)//virtual黄灯运行，多态
     { 
@@ -282,95 +285,130 @@ void Gettg(CarLightEW*pt, SensorES & Obj1, SensorWN & Obj2)// 作比较, 然后�
   else {pt->tg=Newtg(Obj2);
     }
  }
-  public://while (1){}
+  public:
    void SensorW()
    {
-   SW.GetT();
+     for(;;){
+      m1.lock();
+    SW.GetT();
     sensor.lock();
     SW.outputT();
     sensor.unlock();
     Newtg(SW);
     m1.unlock(); //在调用这个类的构造函数时，锁定（锁的成对出现理论）。
-   }
+   }}
+   
     void SensorE()
-     {
+     { 
+     for(;;){
+      m2.lock();
      SE.GetT();// 不用再加锁，tg 来控制。
      sensor.lock();//共享一个23号口输出；
      SE.outputT();
      sensor.unlock();
      Newtg(SE);
-     m2.unlock(); 
+     m2.unlock();
+     }}
+   
     void SensorS()
-    {   
+    {  
+       for(;;){
+        m3.lock();
        SS.GetT();
       sensor1.lock();
       SS.outputT();
       sensor1.unlock();
       Newtg(SS);
       m3.unlock();
-     
+     }}
+    
     void SensorN()
-    { 
+    {   
+     for(;;){
+        m4.lock();
      SS.GetT();
       sensor1.lock();
        SN.outputT();
      sensor1.unlock();
       Newtg(SN);
      m4.unlock();
-    
+     }}
+    //LogicalMutex(){car.lock();car1.lock(); m1.lock(); m2.lock(); m3.lock();m4.lock();button.lock();button1.lock();} 
+   //构造函数中只锁了一次，利用程序体循环锁（＋各函数for(;;)做循环）sensor的锁无论是谁先用23进行输出无所谓，所以不许放在构造函数中。。
+   //除去构造函数中，程序“体”中的锁成对出现。
      void CL()
     {
-     GRLight(&CEW);
-    YellowLight(&CEW);
-     if(WL.CheckB()=1)
+     for(;;){
+     GRLight(&CEW);  
+     YellowLight(&CEW); 
+     if(YellowLight(&CEW)>5)
+      {m3.unlock();
+      m4.unlock();}
+     if(WL.CheckB()=1&&YellowLight(&CEW)=0)
       {    
        button.unlock();
      }
      else{  
       WL.WNLighting();
-     delay(500);
-    car.unlock(); 
+     td::this_thread::sleep_for(std::chrono::milliseconds(500));//delay(500);
+    car.unlock(); //对应的  car.lock() 在构造函数中；
        }//只有一个获得了锁。
       car.lock();
       m3.lock();
       m4.lock();
      Gettg(&CEW, SS, SN);
-       m3.unlock();
-      m4.unlock();
+       //m3.unlock();
+      //m4.unlock();
      GRLight(&CSN); 
      YellowLight(&CSN);//少一个carlock，和button lock，构造。
-      if(WL.CheckB()=1)
+      if(YellowLight(&CSN)>5)
+      {m1.unlock();
+      m2.unlock();}
+       if(WL.CheckB()=1&&YellowLight(&CSN)=0)
       {    
-       button.unlock();
+       button1.unlock();
      }
      else{  
       WL.WNLighting();
-     delay(500);
-    car.unlock(); 
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));// make thread sleep for 500 ms(can both add in void /main after thread.。
+    car1.unlock();//对应的  car1.lock() 在构造函数中；
        }//只有一个获得了锁。 
-      car.lock();
+      car1.lock();
       m1.lock();
       m2.lock();
     Gettg(&CSN, SE, SW);
-     m1.unlock();
-      m2.unlock();
-      
-    void WLAB()
-    {
+     //m1.unlock();
+      //m2.unlock();
+      }}
+    void WLABEW()//EW方向
+    {  
+     for(;;){
      WL.CheckB();
      button.lock();
        WL. WLighting();
       WL.Setflag();
-       button.lock();
-        car.unlock();  
-      }   
+      car.unlock(); //if and else 注意 
+       //button.lock();
+        } }
+      
+    void WLABSN() //SN方向
+     {
+         for(;;){
+     WL.CheckB();
+     button1.lock();
+       WL. WLighting();
+      WL.Setflag();
+       //button1.lock();
+        car1.unlock();  //if and else 注意
+      }}
+   
    private:
   CarLightEW CEW;
   CarLightSN CSN;
   SensorES SE, SS; 
   SensorWN SW, SN;
-  WalkLight WL;
-   std::mutex m1, m2, m3, m4, sensor,sensor1,car;
+  WalkLight WLSN, WLEW;
+   std::mutex m1, m2, m3, m4, sensor,sensor1,car,car1,button,button1;
 
 int main()
 {
@@ -383,14 +421,16 @@ int main()
    std::thread t2(&LogicalMutex::SensorE,std::ref(LM));
    std::thread t3(&LogicalMutex::SensorS,std::ref(LM));
    std::thread t4(&LogicalMutex::SensorN,std::ref(LM));//第二个参数，保证线程里用的同一个对象
-   std::thread t5((&LogicalMutex::WLAB,std::ref(LM));
-   std::thread t6((&LogicalMutex::CL,std::ref(LM));
+   std::thread t5((&LogicalMutex::WLABSN,std::ref(LM));
+   std::thread t6((&LogicalMutex::WLABEW,std::ref(LM));
+   std::thread t7((&LogicalMutex::CL,std::ref(LM));
        t1.join();
         t2.join();
        t3.join();
          t4.join();
           t5.join();
           t6.join();
+          t7.join();  
        cout<<"this is a trafficlight system"<<endl;
      return 0；
    }
