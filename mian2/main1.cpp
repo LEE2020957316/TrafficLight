@@ -119,7 +119,7 @@ digitalWrite(2, LOW);
     digitalWrite(26, 1);
     digitalWrite(27, 1); //SN green, else red;
       CarLightEW::tg--;
-   return CarLightEW::tg--;
+   return CarLightEW::tg;
   //if(CarLightEW::tg<=5 && tg>0)// counterv t can not exceed 1 minutes?
       //{ obj.InputT();}// 五秒倒计时开始传
     }
